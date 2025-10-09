@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import gitHubLogo from './assets/github-logo-svgrepo-com.svg'
 import './App.css'
 
 function App() {
@@ -16,10 +17,10 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
         <a href="https://github.com/mayazhang1241/gt-cal?tab=readme-ov-file" target="_blank">
-          <img src={reactLogo} className="logo github" alt="Github logo" />
+          <img src={gitHubLogo} className="logo github" alt="Github logo" />
         </a>
         <p>
-          ^ this is supposed to be a Github Logo...
+          ^__________________________________
         </p>
         <p>
           clicking on it sends you to our GitHub Page.
