@@ -28,12 +28,12 @@ function App() {
         </p>
       </div>
       <div> 
-        <img alt="Person's image" src = {gtCalLogo}/> 
-        <span> 
-          <b>Name</b>
-        </span> 
+        <img alt="Person's image" 
+        src = {gtCalLogo}
+        style = {{height: "120px",paddingLeft: "110px"}}
+        /> 
+
         <br /> 
-        <span>Comment</span> 
       </div>
       <h1>GTCalendar</h1>
       <div className="card">
