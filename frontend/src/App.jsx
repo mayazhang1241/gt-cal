@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(1)
 
   return (
     <>
@@ -15,10 +15,19 @@ function App() {
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
+        <a href="https://github.com/mayazhang1241/gt-cal?tab=readme-ov-file" target="_blank">
+          <img src={reactLogo} className="logo github" alt="Github logo" />
+        </a>
+        <p>
+          ^ this is supposed to be a Github Logo...
+        </p>
+        <p>
+          clicking on it sends you to our GitHub Page.
+        </p>
       </div>
-      <h1>Vite + React</h1>
+      <h1>GTCalendar</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => setCount((count) => count * 2)}>
           count is {count}
         </button>
         <p>
@@ -26,7 +35,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Click on the Vite and React logos to learn more!!!
       </p>
     </>
   )
