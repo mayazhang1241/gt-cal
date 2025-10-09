@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import gitHubLogo from './assets/github-logo-svgrepo-com.svg'
+import gtCalLogo from './assets/GTCal_icon.png'
 import './App.css'
 
 function App() {
@@ -25,6 +26,14 @@ function App() {
         <p>
           clicking on it sends you to our GitHub Page.
         </p>
+      </div>
+      <div> 
+        <img alt="Person's image" src = {gtCalLogo}/> 
+        <span> 
+          <b>Name</b>
+        </span> 
+        <br /> 
+        <span>Comment</span> 
       </div>
       <h1>GTCalendar</h1>
       <div className="card">
