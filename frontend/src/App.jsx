@@ -15,9 +15,9 @@ function LandingPage({ onEnterCalendar }) {
               <img src= {logo} alt="GT-Cal Logo" className="hero-logo" />
             </div>
             <h3 className="hero-title">GT-Cal</h3>
-            <div>
+            
             <p className="hero-subtitle">Georgia Tech's Social Calendar</p>
-            </div>
+            
           </div>
           
           <div className="hero-description">
