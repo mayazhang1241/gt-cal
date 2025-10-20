@@ -4,8 +4,13 @@ import EventModal from './EventModal.jsx';
 import axios from 'axios';
 import logo from './assets/GTCal_icon.png';
 
+
+
 // Landing Page Component
 function LandingPage({ onEnterCalendar }) {
+  useEffect(() => {
+    document.title = "GT-Cal";
+  },[]);
   return (
     <div className="landing-page">
       <div className="landing-container">
