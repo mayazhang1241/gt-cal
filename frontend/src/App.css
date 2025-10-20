@@ -65,7 +65,7 @@
 .app {
   min-height: 100vh;
   width: 100vw;
-  background: linear-gradient(135deg, #003057 0%, #A9A9A9 100%);
+  background: linear-gradient(135deg, var(--primary-blue)0%, var(--primary-gray)100%);
   font-family: var(--font-family);
   transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -77,7 +77,7 @@
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #003057 0%, #A9A9A9 50%, #003057 100%);
+  background: linear-gradient(135deg, var(--primary-blue)0%, var(--primary-gray)50%, var(--primary-blue)100%);
   position: relative;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -106,7 +106,7 @@
 }
 
 .hero-card {
-  background: #003057;
+  background: var(--primary-blue);
   backdrop-filter: blur(20px);
   border-radius: 2rem;
   padding: 3rem 2rem;
@@ -121,6 +121,7 @@
 }
 
 .logo-section {
+  margin-top: 2.5rem;
   margin-bottom: 2rem;
   animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }
@@ -128,9 +129,9 @@
 .logo-wrapper {
   display: inline-block;
   padding: 0.75rem;
-  background: #FFD900;
+  background: var(--primary-yellow);
   border-radius: 50%;
-  margin-bottom: 1.5rem;
+  margin-bottom: -1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
@@ -148,22 +149,21 @@
 
 .hero-title {
   font-size: 4rem;
-  color: var(--gt-yellow);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--gt-yellow), #8b94ff);
+  background: linear-gradient(135deg, var(--primary-yellow), #8b94ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.02em;
   order: 2;
   margin: 0 0 0.75rem 0;
-  text-shadow: 0 2px 4px rgba(0, 48, 87, 0.3);
+  text-shadow: 5px 8px 10px #a9a9a975;
   animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: #A9A9A9;
+  color: var(--primary-gray);
   margin: 0 0 2rem 0;
   order: 1;
   font-weight: 400;
@@ -177,7 +177,7 @@
 
 .hero-description p {
   font-size: 1.125rem;
-  color: #A9A9A9;
+  color: var(--primary-gray);
   margin-bottom: 0.5rem;
   line-height: 1.6;
 }
@@ -216,7 +216,7 @@
 .feature-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 20px 40px rgba(0, 48, 87, 0.15);
-  border-color: #FFD900;
+  border-color: var(--primary-yellow);
 }
 
 .feature-icon {
@@ -230,22 +230,22 @@
 }
 
 .feature-card h3 {
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   font-size: 1.125rem;
   font-weight: 600;
 }
 
 .feature-card p {
-  color: #A9A9A9;
+  color: var(--primary-gray);
   font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
 }
 
 .cta-button {
-  background: #FFD900;
-  color: #003057;
+  background: var(--primary-yellow);
+  color: var(--primary-blue);
   border: none;
   padding: 1rem 2rem;
   font-size: 1.25rem;
@@ -283,7 +283,7 @@
 .calendar-header-nav {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 3px solid #FFD900;
+  border-bottom: 3px solid var(--primary-yellow);
   box-shadow: 0 4px 20px rgba(0, 48, 87, 0.1);
   position: sticky;
   top: 0;
@@ -324,7 +324,7 @@
 
 .logo-section h1 {
   font-size: 1.5rem;
-  color: #003057;
+  color: var(--primary-blue);
   margin: 0;
   font-weight: 700;
   line-height: 1;
@@ -344,7 +344,7 @@
   padding: 0.75rem 1.5rem;
   border: none;
   background: transparent;
-  color: #A9A9A9;
+  color: var(--primary-gray);
   font-weight: 500;
   border-radius: 1rem;
   cursor: pointer;
@@ -358,12 +358,12 @@
 
 .nav-btn:hover {
   background: #E6F3FF;
-  color: #003057;
+  color: var(--primary-blue);
   transform: translateY(-2px) scale(1.05);
 }
 
 .nav-btn.active {
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   box-shadow: 0 4px 15px rgba(0, 48, 87, 0.3);
   transform: scale(1.05);
@@ -379,8 +379,8 @@
 .user-avatar {
   width: 44px;
   height: 44px;
-  background: #FFD900;
-  color: #003057;
+  background: var(--primary-yellow);
+  color: var(--primary-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -427,7 +427,7 @@
 }
 
 .nav-button {
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   border: none;
   border-radius: 50%;
@@ -475,7 +475,7 @@
 }
 
 .calendar-title {
-  color: #003057;
+  color: var(--primary-blue);
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
@@ -488,20 +488,21 @@
   background: transparent;
   border-radius: 1.5rem;
   padding: 1rem;
+  margin-top: 20rem;
   box-shadow: 0 8px 25px rgba(0, 48, 87, 0.15);
   border: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .day-header {
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   padding: 1rem;
   text-align: center;
   font-weight: 600;
   font-size: 0.875rem;
   border-radius: 1rem;
-  border: 1px solid #003057;
+  border: 1px solid var(--primary-blue);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
 }
@@ -530,7 +531,7 @@
 
 .calendar-day.today {
   background: rgba(255, 217, 0, 0.15);
-  border: 2px solid #FFD900;
+  border: 2px solid var(--primary-yellow);
   box-shadow: 0 4px 15px rgba(255, 217, 0, 0.3);
   animation: pulse 2s ease-in-out infinite;
 }
@@ -545,17 +546,17 @@
 }
 
 .calendar-day.empty {
-  background: #A9A9A9;
+  background: var(--primary-gray);
   cursor: default;
-  border: 1px solid #A9A9A9;
+  border: 1px solid var(--primary-gray);
   opacity: 0.7;
 }
 
 .calendar-day.empty:hover {
-  background: #A9A9A9;
+  background: var(--primary-gray);
   transform: none;
   box-shadow: 0 2px 8px rgba(169, 169, 169, 0.3);
-  border-color: #A9A9A9;
+  border-color: var(--primary-gray);
 }
 
 /* Responsive Calendar Grid */
@@ -615,7 +616,7 @@
 
 .day-number {
   font-weight: 700;
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   font-size: 1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -628,8 +629,8 @@
 }
 
 .event-indicator {
-  background: #FFD900;
-  color: #003057;
+  background: var(--primary-yellow);
+  color: var(--primary-blue);
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.75rem;
@@ -644,15 +645,15 @@
 }
 
 .event-indicator:hover {
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   transform: scale(1.1);
   box-shadow: 0 6px 20px rgba(0, 48, 87, 0.3);
 }
 
 .more-events {
-  background: #A9A9A9;
-  color: #003057;
+  background: var(--primary-gray);
+  color: var(--primary-blue);
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.75rem;
@@ -663,7 +664,7 @@
 }
 
 .more-events:hover {
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   transform: scale(1.05);
 }
@@ -713,7 +714,7 @@
 
 .modal-header h2 {
   margin: 0;
-  color: #003057;
+  color: var(--primary-blue);
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -724,7 +725,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #A9A9A9;
+  color: var(--primary-gray);
   cursor: pointer;
   padding: 0.75rem;
   border-radius: 1rem;
@@ -735,7 +736,7 @@
 
 .close-btn:hover {
   background: rgba(0, 48, 87, 0.1);
-  color: #003057;
+  color: var(--primary-blue);
   transform: scale(1.1);
 }
 
@@ -788,7 +789,7 @@
 
 .info-label {
   font-weight: 600;
-  color: #003057;
+  color: var(--primary-blue);
   width: 120px;
   flex-shrink: 0;
   font-size: 0.875rem;
@@ -810,7 +811,7 @@
 }
 
 .event-description h3 {
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 0.75rem;
   font-size: 1.125rem;
   font-weight: 700;
@@ -879,7 +880,7 @@
 .stat-number {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #003057;
+  color: var(--primary-blue);
 }
 
 .stat-label {
@@ -921,28 +922,28 @@
 }
 
 .action-btn.primary {
-  background: #FFD900;
-  color: #003057;
-  border: 2px solid #FFD900;
+  background: var(--primary-yellow);
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-yellow);
   box-shadow: 0 4px 15px rgba(255, 217, 0, 0.3);
 }
 
 .action-btn.primary:hover {
   background: #FFF8DC;
-  color: #003057;
+  color: var(--primary-blue);
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 25px rgba(255, 217, 0, 0.4);
 }
 
 .action-btn.secondary {
   background: rgba(0, 48, 87, 0.1);
-  color: #003057;
+  color: var(--primary-blue);
   border: 2px solid rgba(0, 48, 87, 0.2);
 }
 
 .action-btn.secondary:hover {
   background: rgba(0, 48, 87, 0.15);
-  color: #003057;
+  color: var(--primary-blue);
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 25px rgba(0, 48, 87, 0.15);
 }
@@ -1050,13 +1051,13 @@
 
 .event-detail-actions .btn-outline {
   background: rgba(0, 48, 87, 0.1);
-  color: #003057;
+  color: var(--primary-blue);
   border: 2px solid rgba(0, 48, 87, 0.2);
 }
 
 .event-detail-actions .btn-outline:hover {
   background: rgba(0, 48, 87, 0.15);
-  color: #003057;
+  color: var(--primary-blue);
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 25px rgba(0, 48, 87, 0.15);
 }
@@ -1122,7 +1123,7 @@
 }
 
 .events-container h2 {
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 2rem;
   font-size: 2rem;
   font-weight: 700;
@@ -1141,7 +1142,7 @@
   padding: 1rem;
   background: #F5F5F5;
   border-radius: 1.5rem;
-  border: 1px solid #A9A9A9;
+  border: 1px solid var(--primary-gray);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -1151,7 +1152,7 @@
 .event-item:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 30px rgba(0, 48, 87, 0.15);
-  border-color: #FFD900;
+  border-color: var(--primary-yellow);
 }
 
 .event-date {
@@ -1160,7 +1161,7 @@
   align-items: center;
   min-width: 60px;
   padding: 0.75rem;
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   border-radius: 1rem;
   font-weight: 600;
@@ -1181,13 +1182,13 @@
 }
 
 .event-info h3 {
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   font-size: 1.125rem;
 }
 
 .event-info p {
-  color: #A9A9A9;
+  color: var(--primary-gray);
   font-size: 0.875rem;
   margin: 0.25rem 0;
 }
@@ -1196,13 +1197,13 @@
   display: flex;
   gap: 1rem;
   font-size: 0.875rem;
-  color: #A9A9A9;
+  color: var(--primary-gray);
 }
 
 .no-events {
   text-align: center;
   padding: 3rem;
-  color: #A9A9A9;
+  color: var(--primary-gray);
 }
 
 .no-events p {
@@ -1233,8 +1234,8 @@
 .profile-avatar {
   width: 100px;
   height: 100px;
-  background: #FFD900;
-  color: #003057;
+  background: var(--primary-yellow);
+  color: var(--primary-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1253,13 +1254,13 @@
 }
 
 .profile-header h2 {
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
 }
 
 .profile-header p {
-  color: #A9A9A9;
+  color: var(--primary-gray);
   font-size: 1rem;
 }
 
@@ -1272,7 +1273,7 @@
 
 .stat-card {
   background: #F5F5F5;
-  border: 1px solid #A9A9A9;
+  border: 1px solid var(--primary-gray);
   border-radius: 1.5rem;
   padding: 1.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1281,11 +1282,11 @@
 .stat-card:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 12px 30px rgba(0, 48, 87, 0.15);
-  border-color: #FFD900;
+  border-color: var(--primary-yellow);
 }
 
 .stat-card h3 {
-  color: #003057;
+  color: var(--primary-blue);
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -1294,7 +1295,7 @@
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #003057;
+  color: var(--primary-blue);
 }
 
 .profile-actions {
@@ -1326,21 +1327,21 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.875rem;
-  color: #A9A9A9;
+  color: var(--primary-gray);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
 
 .tab-btn.active {
-  background: #003057;
+  background: var(--primary-blue);
   color: var(--white);
   box-shadow: 0 4px 15px rgba(0, 48, 87, 0.3);
 }
 
 .tab-btn:hover:not(.active) {
   background: var(--white);
-  color: #003057;
+  color: var(--primary-blue);
   transform: scale(1.05);
 }
 
