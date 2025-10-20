@@ -165,59 +165,8 @@ function CalendarGrid({ events, onDayClick, onEventClick }) {
   );
 }
 
-// Event Detail Modal with Social Features
-function EventDetailModal({ event, isOpen, onClose, onEdit, onDelete, onLike, onAttend, onComment, currentUserId }) {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isAttending, setIsAttending] = useState(false);
-  const [showComments, setShowComments] = useState(false);
-  const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState([]);
-
-  // Mock comments data - in a real app, this would come from an API
-  const mockComments = [
-    { id: 1, user: "Alex Chen", message: "Can't wait for this event!", timestamp: "2 hours ago", avatar: "AC" },
-    { id: 2, user: "Sarah Kim", message: "I'm bringing snacks for everyone!", timestamp: "1 hour ago", avatar: "SK" },
-    { id: 3, user: "Mike Johnson", message: "Which companies are attending?", timestamp: "3 hours ago", avatar: "MJ" }
-  ];
-
-  useEffect(() => {
-    if (event) {
-      setIsLiked(event.likedBy?.includes(currentUserId) || false);
-      setIsAttending(event.attendingUsers?.includes(currentUserId) || false);
-      setComments(mockComments.filter(comment => comment.eventId === event.id));
-    }
-  }, [event, currentUserId]);
-
-  const handleLike = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
-    const newLikedState = !isLiked;
-    setIsLiked(newLikedState);
-    onLike(event.id, newLikedState);
-  };
-
-  const handleAttend = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
-    const newAttendingState = !isAttending;
-    setIsAttending(newAttendingState);
-    onAttend(event.id, newAttendingState);
-  };
-
-  const handleAddComment = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
-    if (newComment.trim()) {
-      const comment = {
-        id: Date.now(),
-        user: "You",
-        message: newComment.trim(),
-        timestamp: "now",
-        avatar: "U",
-        eventId: event.id
-      };
-      setComments(prev => [...prev, comment]);
-      setNewComment('');
-      onComment(event.id);
-    }
-  };
+// Event Detail Modal
+function EventDetailModal({ event, isOpen, onClose, onEdit, onDelete }) {
 
   if (!isOpen || !event) return null;
   
@@ -281,70 +230,6 @@ function EventDetailModal({ event, isOpen, onClose, onEdit, onDelete, onLike, on
             </div>
           </div>
         </div>
-        
-        <div className="event-interactions">
-          <button 
-            className={`interaction-btn like-btn ${isLiked ? 'liked' : ''}`}
-            onClick={handleLike}
-          >
-            <span className="btn-icon">{isLiked ? '❤️' : '🤍'}</span>
-            <span className="btn-text">{isLiked ? 'Liked' : 'Like'}</span>
-            <span className="btn-count">{event.likes}</span>
-          </button>
-          
-          <button 
-            className={`interaction-btn attend-btn ${isAttending ? 'attending' : ''}`}
-            onClick={handleAttend}
-          >
-            <span className="btn-icon">{isAttending ? '✅' : '📅'}</span>
-            <span className="btn-text">{isAttending ? 'Attending' : 'Attend'}</span>
-            <span className="btn-count">{event.attendees}</span>
-          </button>
-          
-          <button 
-            className="interaction-btn comment-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowComments(!showComments);
-            }}
-          >
-            <span className="btn-icon">💬</span>
-            <span className="btn-text">Comments</span>
-            <span className="btn-count">{event.comments}</span>
-          </button>
-        </div>
-
-        {showComments && (
-          <div className="comments-section">
-            <h3>Comments</h3>
-            <div className="comments-list">
-              {comments.map(comment => (
-                <div key={comment.id} className="comment-item">
-                  <div className="comment-avatar">{comment.avatar}</div>
-                  <div className="comment-content">
-                    <div className="comment-header">
-                      <span className="comment-user">{comment.user}</span>
-                      <span className="comment-timestamp">{comment.timestamp}</span>
-                    </div>
-                    <p className="comment-message">{comment.message}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="add-comment">
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Add a comment..."
-                rows="2"
-              />
-              <button className="btn btn-primary" onClick={handleAddComment}>
-                Post Comment
-              </button>
-            </div>
-          </div>
-        )}
         
         <div className="event-detail-actions">
           <button className="btn btn-outline" onClick={onEdit}>Edit Event</button>
@@ -449,10 +334,6 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
         }}
         onEdit={handleEditEvent}
         onDelete={handleDeleteEvent}
-        onLike={onLike}
-        onAttend={onAttend}
-        onComment={onComment}
-        currentUserId={currentUserId}
       />
     </div>
   );
