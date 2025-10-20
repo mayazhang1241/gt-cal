@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import EventModal from './EventModal.jsx';
 import axios from 'axios';
+import logo from './assets/GTCal_icon.png';
 
 // Landing Page Component
 function LandingPage({ onEnterCalendar }) {
@@ -11,10 +12,12 @@ function LandingPage({ onEnterCalendar }) {
         <div className="hero-card">
           <div className="logo-section">
             <div className="logo-wrapper">
-              <img src="/GTCal_icon.png" alt="GT-Cal Logo" className="hero-logo" />
+              <img src= {logo} alt="GT-Cal Logo" className="hero-logo" />
             </div>
-            <h1 className="hero-title">GT-Cal</h1>
+            <h3 className="hero-title">GT-Cal</h3>
+            <div>
             <p className="hero-subtitle">Georgia Tech's Social Calendar</p>
+            </div>
           </div>
           
           <div className="hero-description">
@@ -447,7 +450,7 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
       <header className="calendar-header-nav">
         <div className="header-container">
           <div className="logo-section">
-            <img src="/GTCal_icon.png" alt="GT-Cal Logo" className="logo" />
+            <img src= {logo} alt="GT-Cal Logo" className="logo" />
             <h1>GT-Cal</h1>
           </div>
           <nav className="nav">
