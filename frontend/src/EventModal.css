@@ -1,4 +1,36 @@
-/* Event Modal - Ultra Cool Design */
+/* Event Modal - Apple-like Premium Design */
+
+/* Keyframe Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+}
 
 .modal-overlay {
   position: fixed;
@@ -6,13 +38,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 1rem;
+  animation: modalFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .event-modal-content {
@@ -78,6 +111,7 @@
 
 .event-form {
   padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .form-group {
@@ -130,7 +164,7 @@
 .form-group input.error,
 .form-group textarea.error {
   border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15), 0 4px 12px rgba(239, 68, 68, 0.1);
 }
 
 .form-group textarea {
@@ -153,6 +187,10 @@
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(0, 48, 87, 0.1);
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border-radius: 0 0 2rem 2rem;
+  margin: 2rem -2rem -2rem -2rem;
+  padding: 1.5rem 2rem 2rem 2rem;
 }
 
 .form-actions .btn {
@@ -195,37 +233,25 @@
 }
 
 .publish-btn:disabled {
-  opacity: 0.7 !important;
+  opacity: 0.6 !important;
   cursor: not-allowed !important;
-  animation: none !important;
+  transform: none !important;
 }
 
 .publish-btn.success {
-  background: linear-gradient(135deg, #10B981, #059669) !important;
-  color: white !important;
+  background: #10B981 !important;
+  color: var(--white) !important;
   animation: successPulse 0.5s ease-out;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 8px 20px rgba(255, 217, 0, 0.4);
-  }
-  50% {
-    box-shadow: 0 8px 20px rgba(255, 217, 0, 0.6), 0 0 0 10px rgba(255, 217, 0, 0.1);
-  }
-  100% {
-    box-shadow: 0 8px 20px rgba(255, 217, 0, 0.4);
-  }
 }
 
 @keyframes successPulse {
   0% {
     transform: scale(1);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    box-shadow: var(--shadow-md);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.6), 0 0 0 15px rgba(16, 185, 129, 0.1);
+    box-shadow: var(--shadow-lg);
   }
   100% {
     transform: scale(1);
@@ -249,12 +275,12 @@
 @media (max-width: 768px) {
   .event-modal-content {
     width: 95%;
-    margin: 1rem;
+    margin: 0.5rem;
   }
   
   .event-modal-content .modal-header,
   .event-form {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   .form-row {
@@ -263,12 +289,14 @@
   }
   
   .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
   
   .form-actions {
     flex-direction: column;
     gap: 0.75rem;
+    margin: 1.5rem -1.5rem -1.5rem -1.5rem;
+    padding: 1.25rem 1.5rem 1.5rem 1.5rem;
   }
   
   .form-actions .btn {
@@ -283,6 +311,11 @@
   
   .event-modal-content .modal-header,
   .event-form {
-    padding: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .form-actions {
+    margin: 1rem -1rem -1rem -1rem;
+    padding: 1rem 1rem 1rem 1rem;
   }
 }

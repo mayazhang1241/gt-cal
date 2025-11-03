@@ -6,19 +6,27 @@ import EventDetails from './EventDetails.jsx';
 import './ListView.css';
 import './EventDetails.css';
 import axios from 'axios';
+import logo from './assets/GTCal_icon.png';
+
+
 
 // Landing Page Component
 function LandingPage({ onEnterCalendar }) {
+  useEffect(() => {
+    document.title = "GT-Cal";
+  },[]);
   return (
     <div className="landing-page">
       <div className="landing-container">
         <div className="hero-card">
           <div className="logo-section">
             <div className="logo-wrapper">
-              <img src="/GTCal_icon.png" alt="GT-Cal Logo" className="hero-logo" />
+              <img src= {logo} alt="GT-Cal Logo" className="hero-logo" />
             </div>
-            <h1 className="hero-title">GT-Cal</h1>
+            <h3 className="hero-title">GT-Cal</h3>
+            
             <p className="hero-subtitle">Georgia Tech's Social Calendar</p>
+            
           </div>
           
           <div className="hero-description">
