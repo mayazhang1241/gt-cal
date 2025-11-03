@@ -217,7 +217,7 @@
 
 .feature-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 48, 87, 0.15);
+  box-shadow: 0 20px 40px #00305726;
   border-color: var(--primary-yellow);
 }
 
@@ -299,11 +299,11 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 80px;
+  min-height: 40px;
 }
 
 .logo-section {
