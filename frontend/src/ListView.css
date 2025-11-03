@@ -1,0 +1,129 @@
+.list-view {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 15px rgba(0, 48, 87, 0.1);
+  width: 100%;
+  height: fit-content;
+}
+
+.list-header {
+  margin-bottom: 2rem;
+}
+
+.list-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.date-header {
+  color: #003057;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #E5E5E5;
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.list-event-card {
+  display: grid;
+  grid-template-columns: 150px 1fr 200px;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: #F5F5F5;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #E5E5E5;
+}
+
+.list-event-card:hover {
+  background: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 48, 87, 0.1);
+  border-color: #003057;
+}
+
+.event-time {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.time {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #003057;
+}
+
+.duration {
+  font-size: 0.875rem;
+  color: #666666;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.event-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #003057;
+  margin-bottom: 0.5rem;
+}
+
+.event-location,
+.event-organizer {
+  font-size: 0.875rem;
+  color: #333333;
+}
+
+.event-meta {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.meta-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #003057;
+}
+
+@media (max-width: 768px) {
+  .list-event-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .event-meta {
+    justify-content: flex-start;
+    padding-top: 1rem;
+    border-top: 1px solid #E5E5E5;
+  }
+}
