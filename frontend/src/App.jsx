@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import EventModal from './EventModal.jsx';
+import ListView from './ListView.jsx';
+import EventDetails from './EventDetails.jsx';
+import './ListView.css';
+import './EventDetails.css';
 import axios from 'axios';
 
 // Landing Page Component
@@ -24,17 +28,17 @@ function LandingPage({ onEnterCalendar }) {
           
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon">📅</div>
+              <div className="feature-icon">Calendar</div>
               <h3>Monthly Calendar</h3>
               <p>View all events in an intuitive monthly calendar</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">🎯</div>
+              <div className="feature-icon">Create</div>
               <h3>Event Creation</h3>
               <p>Create and manage your own campus events</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">👥</div>
+              <div className="feature-icon">Social</div>
               <h3>Social Features</h3>
               <p>Like, attend, and discuss events with peers</p>
             </div>
@@ -51,7 +55,7 @@ function LandingPage({ onEnterCalendar }) {
 }
 
 // Calendar Grid Component
-function CalendarGrid({ events, onDayClick, onEventClick }) {
+function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   
   const monthNames = [
@@ -68,6 +72,7 @@ function CalendarGrid({ events, onDayClick, onEventClick }) {
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
     const startingDayOfWeek = firstDay.getDay();
+    const endingDayOfWeek = lastDay.getDay();
     
     const days = [];
     
@@ -79,6 +84,11 @@ function CalendarGrid({ events, onDayClick, onEventClick }) {
     // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       days.push(new Date(year, month, day));
+    }
+    
+    // Add empty cells for days after the last day of the month
+    for (let i = endingDayOfWeek; i < 6; i++) {
+      days.push(null);
     }
     
     return days;
@@ -102,21 +112,52 @@ function CalendarGrid({ events, onDayClick, onEventClick }) {
   
   const days = getDaysInMonth(currentDate);
   
+  // Calculate number of weeks in the month
+  const numWeeks = Math.ceil((days.length) / 7);
+  
   return (
     <div className="calendar-wrapper">
-      <div className="calendar-header">
-        <button className="nav-button" onClick={() => navigateMonth(-1)}>
-          <span>‹</span>
-        </button>
-        <h2 className="calendar-title">
-          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-        </h2>
-        <button className="nav-button" onClick={() => navigateMonth(1)}>
-          <span>›</span>
-        </button>
+      <div className="calendar-controls">
+        <div className="calendar-header">
+          <div className="month-navigation">
+            <button className="nav-button" onClick={() => navigateMonth(-1)}>
+              <span>‹</span>
+            </button>
+            <h2 className="calendar-title">
+              {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+            </h2>
+            <button className="nav-button" onClick={() => navigateMonth(1)}>
+              <span>›</span>
+            </button>
+          </div>
+        </div>
+        <div className="filter-controls">
+          <select className="filter-select" defaultValue="">
+            <option value="">Category</option>
+            <option value="academic">Academic</option>
+            <option value="social">Social</option>
+            <option value="sports">Sports</option>
+            <option value="career">Career</option>
+          </select>
+          <select className="filter-select" defaultValue="">
+            <option value="">Location</option>
+            <option value="klaus">Klaus</option>
+            <option value="coc">College of Computing</option>
+            <option value="culc">CULC</option>
+            <option value="student-center">Student Center</option>
+          </select>
+          <select className="filter-select" defaultValue="">
+            <option value="">Organization</option>
+            <option value="sga">Student Government Association</option>
+            <option value="coc">College of Computing</option>
+            <option value="greek">Greek Life</option>
+            <option value="athletics">Athletics</option>
+          </select>
+          <button className="apply-filter-btn">Apply filter</button>
+        </div>
       </div>
       
-      <div className="calendar-grid">
+      <div className={`calendar-grid weeks-${numWeeks}`}>
         {dayNames.map(day => (
           <div key={day} className="day-header">{day}</div>
         ))}
@@ -162,195 +203,6 @@ function CalendarGrid({ events, onDayClick, onEventClick }) {
   );
 }
 
-// Event Detail Modal with Social Features
-function EventDetailModal({ event, isOpen, onClose, onEdit, onDelete, onLike, onAttend, onComment, currentUserId }) {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isAttending, setIsAttending] = useState(false);
-  const [showComments, setShowComments] = useState(false);
-  const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState([]);
-
-  // Mock comments data - in a real app, this would come from an API
-  const mockComments = [
-    { id: 1, user: "Alex Chen", message: "Can't wait for this event!", timestamp: "2 hours ago", avatar: "AC" },
-    { id: 2, user: "Sarah Kim", message: "I'm bringing snacks for everyone!", timestamp: "1 hour ago", avatar: "SK" },
-    { id: 3, user: "Mike Johnson", message: "Which companies are attending?", timestamp: "3 hours ago", avatar: "MJ" }
-  ];
-
-  useEffect(() => {
-    if (event) {
-      setIsLiked(event.likedBy?.includes(currentUserId) || false);
-      setIsAttending(event.attendingUsers?.includes(currentUserId) || false);
-      setComments(mockComments.filter(comment => comment.eventId === event.id));
-    }
-  }, [event, currentUserId]);
-
-  const handleLike = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
-    const newLikedState = !isLiked;
-    setIsLiked(newLikedState);
-    onLike(event.id, newLikedState);
-  };
-
-  const handleAttend = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
-    const newAttendingState = !isAttending;
-    setIsAttending(newAttendingState);
-    onAttend(event.id, newAttendingState);
-  };
-
-  const handleAddComment = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
-    if (newComment.trim()) {
-      const comment = {
-        id: Date.now(),
-        user: "You",
-        message: newComment.trim(),
-        timestamp: "now",
-        avatar: "U",
-        eventId: event.id
-      };
-      setComments(prev => [...prev, comment]);
-      setNewComment('');
-      onComment(event.id);
-    }
-  };
-
-  if (!isOpen || !event) return null;
-  
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="event-detail-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{event.title}</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
-        </div>
-        
-        <div className="event-detail-content">
-          {event.image && (
-            <div className="event-image">
-              <img src={event.image} alt={event.title} />
-            </div>
-          )}
-          
-          <div className="event-info">
-            <div className="info-row">
-              <span className="info-label">📅 Date:</span>
-              <span className="info-value">{new Date(event.date).toLocaleDateString()}</span>
-            </div>
-            {event.time && (
-              <div className="info-row">
-                <span className="info-label">🕐 Time:</span>
-                <span className="info-value">{event.time}</span>
-              </div>
-            )}
-            <div className="info-row">
-              <span className="info-label">📍 Location:</span>
-              <span className="info-value">{event.location}</span>
-            </div>
-            <div className="info-row">
-              <span className="info-label">👤 Organizer:</span>
-              <span className="info-value">{event.organizer}</span>
-            </div>
-            <div className="info-row">
-              <span className="info-label">🏷️ Category:</span>
-              <span className="info-value">{event.category}</span>
-            </div>
-          </div>
-          
-          <div className="event-description">
-            <h3>Description</h3>
-            <p>{event.description}</p>
-          </div>
-          
-          <div className="event-stats">
-            <div className="stat">
-              <span className="stat-number">{event.likes}</span>
-              <span className="stat-label">❤️ Likes</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">{event.attendees}</span>
-              <span className="stat-label">✅ Attendees</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">{event.comments}</span>
-              <span className="stat-label">💬 Comments</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="event-interactions">
-          <button 
-            className={`interaction-btn like-btn ${isLiked ? 'liked' : ''}`}
-            onClick={handleLike}
-          >
-            <span className="btn-icon">{isLiked ? '❤️' : '🤍'}</span>
-            <span className="btn-text">{isLiked ? 'Liked' : 'Like'}</span>
-            <span className="btn-count">{event.likes}</span>
-          </button>
-          
-          <button 
-            className={`interaction-btn attend-btn ${isAttending ? 'attending' : ''}`}
-            onClick={handleAttend}
-          >
-            <span className="btn-icon">{isAttending ? '✅' : '📅'}</span>
-            <span className="btn-text">{isAttending ? 'Attending' : 'Attend'}</span>
-            <span className="btn-count">{event.attendees}</span>
-          </button>
-          
-          <button 
-            className="interaction-btn comment-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowComments(!showComments);
-            }}
-          >
-            <span className="btn-icon">💬</span>
-            <span className="btn-text">Comments</span>
-            <span className="btn-count">{event.comments}</span>
-          </button>
-        </div>
-
-        {showComments && (
-          <div className="comments-section">
-            <h3>Comments</h3>
-            <div className="comments-list">
-              {comments.map(comment => (
-                <div key={comment.id} className="comment-item">
-                  <div className="comment-avatar">{comment.avatar}</div>
-                  <div className="comment-content">
-                    <div className="comment-header">
-                      <span className="comment-user">{comment.user}</span>
-                      <span className="comment-timestamp">{comment.timestamp}</span>
-                    </div>
-                    <p className="comment-message">{comment.message}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="add-comment">
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Add a comment..."
-                rows="2"
-              />
-              <button className="btn btn-primary" onClick={handleAddComment}>
-                Post Comment
-              </button>
-            </div>
-          </div>
-        )}
-        
-        <div className="event-detail-actions">
-          <button className="btn btn-outline" onClick={onEdit}>Edit Event</button>
-          <button className="btn btn-danger" onClick={onDelete}>Delete Event</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // My Events View Component
 function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, currentUserId }) {
@@ -393,13 +245,13 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
             className={`tab-btn ${activeTab === 'created' ? 'active' : ''}`}
             onClick={() => setActiveTab('created')}
           >
-            📝 Created Events ({createdEvents.length})
+            Created Events ({createdEvents.length})
           </button>
           <button 
             className={`tab-btn ${activeTab === 'attending' ? 'active' : ''}`}
             onClick={() => setActiveTab('attending')}
           >
-            ✅ Attending Events ({attendingEvents.length})
+            Attending Events ({attendingEvents.length})
           </button>
         </div>
         
@@ -422,14 +274,14 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
                 </div>
                 <div className="event-info">
                   <h3>{event.title}</h3>
-                  <p className="event-location">📍 {event.location}</p>
-                  <p className="event-time">🕐 {event.time}</p>
-                  <p className="event-organizer">👤 {event.organizer}</p>
+                  <p className="event-location">{event.location}</p>
+                  <p className="event-time">{event.time}</p>
+                  <p className="event-organizer">{event.organizer}</p>
                 </div>
                 <div className="event-stats">
-                  <span>❤️ {event.likes}</span>
-                  <span>✅ {event.attendees}</span>
-                  <span>💬 {event.comments}</span>
+                  <span>{event.likes} Likes</span>
+                  <span>{event.attendees} Attending</span>
+                  <span>{event.comments} Comments</span>
                 </div>
               </div>
             ))
@@ -437,7 +289,7 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
         </div>
       </div>
       
-      <EventDetailModal
+      <EventDetails
         event={selectedEvent}
         isOpen={isEventDetailOpen}
         onClose={() => {
@@ -449,7 +301,6 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
         onLike={onLike}
         onAttend={onAttend}
         onComment={onComment}
-        currentUserId={currentUserId}
       />
     </div>
   );
@@ -526,15 +377,28 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
     }
   };
   
+  const [viewMode, setViewMode] = useState('calendar'); // 'calendar' or 'list'
+
   const renderCurrentView = () => {
     switch (currentView) {
       case 'calendar':
         return (
-          <CalendarGrid 
-            events={events}
-            onDayClick={handleDayClick}
-            onEventClick={handleEventClick}
-          />
+          <div className="view-container">
+            {viewMode === 'calendar' ? (
+              <CalendarGrid 
+                events={events}
+                onDayClick={handleDayClick}
+                onEventClick={handleEventClick}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+              />
+            ) : (
+              <ListView 
+                events={events}
+                onEventClick={handleEventClick}
+              />
+            )}
+          </div>
         );
       case 'my-events':
         return (
@@ -567,33 +431,35 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         <div className="header-container">
           <div className="logo-section">
             <img src="/GTCal_icon.png" alt="GT-Cal Logo" className="logo" />
-            <h1>GT-Cal</h1>
           </div>
           <nav className="nav">
             <button 
-              className={`nav-btn ${currentView === 'calendar' ? 'active' : ''}`}
-              onClick={() => onViewChange('calendar')}
+              className={`nav-btn ${currentView === 'calendar' && viewMode === 'calendar' ? 'active' : ''}`}
+              onClick={() => {
+                onViewChange('calendar');
+                setViewMode('calendar');
+              }}
             >
-              📅 Calendar
+              Calendar
+            </button>
+            <button 
+              className={`nav-btn ${currentView === 'calendar' && viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => {
+                onViewChange('calendar');
+                setViewMode('list');
+              }}
+            >
+              List
             </button>
             <button 
               className={`nav-btn ${currentView === 'my-events' ? 'active' : ''}`}
               onClick={() => onViewChange('my-events')}
             >
-              📋 My Events
-            </button>
-            <button 
-              className={`nav-btn ${currentView === 'profile' ? 'active' : ''}`}
-              onClick={() => onViewChange('profile')}
-            >
-              👤 Profile
+              My Events
             </button>
           </nav>
           <div className="user-section">
-            <button className="btn btn-primary" onClick={() => setIsEventModalOpen(true)}>
-              ➕ Create Event
-            </button>
-            <div className="user-avatar">GT</div>
+            <div className="user-avatar" onClick={() => onViewChange('profile')}>GT</div>
           </div>
         </div>
       </header>
@@ -614,7 +480,7 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         initialDate={selectedDate}
       />
       
-      <EventDetailModal
+      <EventDetails
         event={selectedEvent}
         isOpen={isEventDetailOpen}
         onClose={() => {
@@ -626,7 +492,6 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         onLike={onLike}
         onAttend={onAttend}
         onComment={onComment}
-        currentUserId={currentUserId}
       />
     </div>
   );
@@ -735,21 +600,15 @@ const mockEvents = [
 ];
 
 function App() {
-  const [currentView, setCurrentView] = useState('landing'); // 'landing', 'calendar', 'my-events', 'profile'
-  const [calendarView, setCalendarView] = useState('calendar'); // 'calendar', 'my-events', 'profile'
+  const [currentView, setCurrentView] = useState('calendar');
   const [events, setEvents] = useState(mockEvents);
   const [loading, setLoading] = useState(false);
 
   // Mock user ID for development
   const currentUserId = 'user123';
 
-  const handleEnterCalendar = () => {
-    setCurrentView('calendar');
-    setCalendarView('calendar');
-  };
-
   const handleViewChange = (view) => {
-    setCalendarView(view);
+    setCurrentView(view);
   };
 
   const handleCreateEvent = async (eventData) => {
@@ -891,23 +750,19 @@ function App() {
 
   return (
     <div className="app">
-      {currentView === 'landing' ? (
-        <LandingPage onEnterCalendar={handleEnterCalendar} />
-      ) : (
-        <CalendarPage 
-          events={events}
-          onCreateEvent={handleCreateEvent}
-          onEventClick={() => {}}
-          onEditEvent={() => {}}
-          onDeleteEvent={handleDeleteEvent}
-          onLike={handleLike}
-          onAttend={handleAttend}
-          onComment={handleComment}
-          currentView={calendarView}
-          onViewChange={handleViewChange}
-          currentUserId={currentUserId}
-        />
-      )}
+      <CalendarPage 
+        events={events}
+        onCreateEvent={handleCreateEvent}
+        onEventClick={() => {}}
+        onEditEvent={() => {}}
+        onDeleteEvent={handleDeleteEvent}
+        onLike={handleLike}
+        onAttend={handleAttend}
+        onComment={handleComment}
+        currentView={currentView}
+        onViewChange={handleViewChange}
+        currentUserId={currentUserId}
+      />
     </div>
   );
 }

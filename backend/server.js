@@ -6,6 +6,7 @@ import eventRoutes from "./routes/eventRoutes.js";
 import discussionRoutes from "./routes/discussionRoutes.js";
 
 dotenv.config();
+console.log("MONGO_URI loaded:", process.env.MONGO_URI);
 
 const app = express();
 app.use(express.json());

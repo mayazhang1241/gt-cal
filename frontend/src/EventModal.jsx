@@ -125,7 +125,7 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
 
   return (
     <div className="modal-overlay" onClick={handleClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="event-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Create New Event</h2>
           <button className="close-btn" onClick={handleClose}>×</button>
@@ -250,7 +250,7 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
               Cancel
             </button>
             <button type="submit" className={`btn btn-primary publish-btn ${isPublished ? 'success' : ''}`} disabled={isPublishing}>
-              {isPublishing ? '⏳ Publishing...' : isPublished ? '✅ Published!' : '🚀 Publish Event'}
+              {isPublishing ? 'Publishing...' : isPublished ? 'Published!' : 'Publish Event'}
             </button>
           </div>
         </form>
