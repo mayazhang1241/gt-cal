@@ -456,6 +456,7 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         <div className="header-container">
           <div className="logo-section">
             <img src= {logo} alt="GT-Cal Logo" className="logo" />
+              
             <h1>GT-Cal</h1>
           </div>
           <nav className="nav">
