@@ -1,252 +1,602 @@
 export const data = 
 [{
-  "Event_ID": 1,
-  "Category": "Social",
-  "Location": "Klaus",
-  "Organization": "Athletics"
+  "id": 1,
+  "name": "Opela",
+  "category": "social",
+  "location": "culc",
+  "organization": "cs"
 }, {
-  "Event_ID": 2,
-  "Category": "Academic",
-  "Location": "Klaus",
-  "Organization": "Greek"
+  "id": 2,
+  "name": "Alphazap",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "sga"
 }, {
-  "Event_ID": 3,
-  "Category": "Social",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 3,
+  "name": "Daltfresh",
+  "category": "career",
+  "location": "culc",
+  "organization": "sga"
 }, {
-  "Event_ID": 4,
-  "Category": "Sports",
-  "Location": "Klaus",
-  "Organization": "Coc"
+  "id": 4,
+  "name": "It",
+  "category": "career",
+  "location": "culc",
+  "organization": "athletics"
 }, {
-  "Event_ID": 5,
-  "Category": "Career",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 5,
+  "name": "Home Ing",
+  "category": "academic",
+  "location": "coc",
+  "organization": "sga"
 }, {
-  "Event_ID": 6,
-  "Category": "Academic",
-  "Location": "CULC",
-  "Organization": "Athletics"
+  "id": 6,
+  "name": "Zamit",
+  "category": "academic",
+  "location": "culc",
+  "organization": "greek"
 }, {
-  "Event_ID": 7,
-  "Category": "Career",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 7,
+  "name": "Subin",
+  "category": "career",
+  "location": "stucen",
+  "organization": "sga"
 }, {
-  "Event_ID": 8,
-  "Category": "Sports",
-  "Location": "CULC",
-  "Organization": "Greek"
+  "id": 8,
+  "name": "Viva",
+  "category": "social",
+  "location": "stucen",
+  "organization": "sga"
 }, {
-  "Event_ID": 9,
-  "Category": "Social",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 9,
+  "name": "Konklux",
+  "category": "social",
+  "location": "stucen",
+  "organization": "sga"
 }, {
-  "Event_ID": 10,
-  "Category": "Career",
-  "Location": "Klaus",
-  "Organization": "SGA"
+  "id": 10,
+  "name": "Transcof",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "greek"
 }, {
-  "Event_ID": 11,
-  "Category": "Academic",
-  "Location": "StuCen",
-  "Organization": "SGA"
+  "id": 11,
+  "name": "Stringtough",
+  "category": "career",
+  "location": "stucen",
+  "organization": "athletics"
 }, {
-  "Event_ID": 12,
-  "Category": "Sports",
-  "Location": "CULC",
-  "Organization": "Athletics"
+  "id": 12,
+  "name": "Holdlamis",
+  "category": "social",
+  "location": "klaus",
+  "organization": "cs"
 }, {
-  "Event_ID": 13,
-  "Category": "Sports",
-  "Location": "CULC",
-  "Organization": "Greek"
+  "id": 13,
+  "name": "Temp",
+  "category": "academic",
+  "location": "klaus",
+  "organization": "sga"
 }, {
-  "Event_ID": 14,
-  "Category": "Social",
-  "Location": "CULC",
-  "Organization": "Greek"
+  "id": 14,
+  "name": "Ronstring",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "sga"
 }, {
-  "Event_ID": 15,
-  "Category": "Social",
-  "Location": "StuCen",
-  "Organization": "Coc"
+  "id": 15,
+  "name": "Span",
+  "category": "social",
+  "location": "culc",
+  "organization": "cs"
 }, {
-  "Event_ID": 16,
-  "Category": "Social",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 16,
+  "name": "Konklux",
+  "category": "social",
+  "location": "stucen",
+  "organization": "sga"
 }, {
-  "Event_ID": 17,
-  "Category": "Social",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 17,
+  "name": "Ronstring",
+  "category": "academic",
+  "location": "stucen",
+  "organization": "greek"
 }, {
-  "Event_ID": 18,
-  "Category": "Academic",
-  "Location": "StuCen",
-  "Organization": "SGA"
+  "id": 18,
+  "name": "Vagram",
+  "category": "career",
+  "location": "stucen",
+  "organization": "athletics"
 }, {
-  "Event_ID": 19,
-  "Category": "Social",
-  "Location": "Klaus",
-  "Organization": "Coc"
+  "id": 19,
+  "name": "Transcof",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "sga"
 }, {
-  "Event_ID": 20,
-  "Category": "Academic",
-  "Location": "StuCen",
-  "Organization": "Coc"
+  "id": 20,
+  "name": "Kanlam",
+  "category": "career",
+  "location": "klaus",
+  "organization": "cs"
 }, {
-  "Event_ID": 21,
-  "Category": "Career",
-  "Location": "CoC",
-  "Organization": "Greek"
+  "id": 21,
+  "name": "Gembucket",
+  "category": "career",
+  "location": "culc",
+  "organization": "cs"
 }, {
-  "Event_ID": 22,
-  "Category": "Academic",
-  "Location": "Klaus",
-  "Organization": "Athletics"
+  "id": 22,
+  "name": "Voyatouch",
+  "category": "sport",
+  "location": "culc",
+  "organization": "sga"
 }, {
-  "Event_ID": 23,
-  "Category": "Sports",
-  "Location": "StuCen",
-  "Organization": "SGA"
+  "id": 23,
+  "name": "Stim",
+  "category": "career",
+  "location": "klaus",
+  "organization": "cs"
 }, {
-  "Event_ID": 24,
-  "Category": "Sports",
-  "Location": "StuCen",
-  "Organization": "Athletics"
+  "id": 24,
+  "name": "Gembucket",
+  "category": "career",
+  "location": "stucen",
+  "organization": "greek"
 }, {
-  "Event_ID": 25,
-  "Category": "Sports",
-  "Location": "CULC",
-  "Organization": "Athletics"
+  "id": 25,
+  "name": "Y-find",
+  "category": "career",
+  "location": "culc",
+  "organization": "athletics"
 }, {
-  "Event_ID": 26,
-  "Category": "Sports",
-  "Location": "CULC",
-  "Organization": "Coc"
+  "id": 26,
+  "name": "Temp",
+  "category": "sport",
+  "location": "coc",
+  "organization": "sga"
 }, {
-  "Event_ID": 27,
-  "Category": "Sports",
-  "Location": "StuCen",
-  "Organization": "Coc"
+  "id": 27,
+  "name": "Tres-Zap",
+  "category": "academic",
+  "location": "klaus",
+  "organization": "sga"
 }, {
-  "Event_ID": 28,
-  "Category": "Academic",
-  "Location": "StuCen",
-  "Organization": "Coc"
+  "id": 28,
+  "name": "Y-find",
+  "category": "academic",
+  "location": "culc",
+  "organization": "cs"
 }, {
-  "Event_ID": 29,
-  "Category": "Career",
-  "Location": "CoC",
-  "Organization": "Greek"
+  "id": 29,
+  "name": "Toughjoyfax",
+  "category": "career",
+  "location": "culc",
+  "organization": "cs"
 }, {
-  "Event_ID": 30,
-  "Category": "Social",
-  "Location": "StuCen",
-  "Organization": "SGA"
+  "id": 30,
+  "name": "Rank",
+  "category": "career",
+  "location": "stucen",
+  "organization": "greek"
 }, {
-  "Event_ID": 31,
-  "Category": "Social",
-  "Location": "CoC",
-  "Organization": "Athletics"
+  "id": 31,
+  "name": "Alphazap",
+  "category": "social",
+  "location": "klaus",
+  "organization": "sga"
 }, {
-  "Event_ID": 32,
-  "Category": "Academic",
-  "Location": "Klaus",
-  "Organization": "SGA"
+  "id": 32,
+  "name": "Stronghold",
+  "category": "sport",
+  "location": "coc",
+  "organization": "cs"
 }, {
-  "Event_ID": 33,
-  "Category": "Academic",
-  "Location": "CULC",
-  "Organization": "Coc"
+  "id": 33,
+  "name": "Rank",
+  "category": "career",
+  "location": "culc",
+  "organization": "athletics"
 }, {
-  "Event_ID": 34,
-  "Category": "Academic",
-  "Location": "CoC",
-  "Organization": "SGA"
+  "id": 34,
+  "name": "Duobam",
+  "category": "social",
+  "location": "culc",
+  "organization": "athletics"
 }, {
-  "Event_ID": 35,
-  "Category": "Career",
-  "Location": "StuCen",
-  "Organization": "Coc"
+  "id": 35,
+  "name": "Domainer",
+  "category": "sport",
+  "location": "coc",
+  "organization": "cs"
 }, {
-  "Event_ID": 36,
-  "Category": "Academic",
-  "Location": "Klaus",
-  "Organization": "SGA"
+  "id": 36,
+  "name": "Sonair",
+  "category": "social",
+  "location": "klaus",
+  "organization": "cs"
 }, {
-  "Event_ID": 37,
-  "Category": "Sports",
-  "Location": "StuCen",
-  "Organization": "SGA"
+  "id": 37,
+  "name": "Tampflex",
+  "category": "social",
+  "location": "coc",
+  "organization": "athletics"
 }, {
-  "Event_ID": 38,
-  "Category": "Social",
-  "Location": "CoC",
-  "Organization": "Coc"
+  "id": 38,
+  "name": "Zontrax",
+  "category": "career",
+  "location": "klaus",
+  "organization": "sga"
 }, {
-  "Event_ID": 39,
-  "Category": "Sports",
-  "Location": "Klaus",
-  "Organization": "Athletics"
+  "id": 39,
+  "name": "Bigtax",
+  "category": "social",
+  "location": "culc",
+  "organization": "athletics"
 }, {
-  "Event_ID": 40,
-  "Category": "Social",
-  "Location": "CULC",
-  "Organization": "Coc"
+  "id": 40,
+  "name": "It",
+  "category": "social",
+  "location": "klaus",
+  "organization": "greek"
 }, {
-  "Event_ID": 41,
-  "Category": "Sports",
-  "Location": "CULC",
-  "Organization": "Greek"
+  "id": 41,
+  "name": "Fintone",
+  "category": "academic",
+  "location": "stucen",
+  "organization": "athletics"
 }, {
-  "Event_ID": 42,
-  "Category": "Social",
-  "Location": "CULC",
-  "Organization": "Coc"
+  "id": 42,
+  "name": "Latlux",
+  "category": "career",
+  "location": "stucen",
+  "organization": "sga"
 }, {
-  "Event_ID": 43,
-  "Category": "Sports",
-  "Location": "Klaus",
-  "Organization": "Athletics"
+  "id": 43,
+  "name": "Quo Lux",
+  "category": "social",
+  "location": "klaus",
+  "organization": "cs"
 }, {
-  "Event_ID": 44,
-  "Category": "Social",
-  "Location": "Klaus",
-  "Organization": "Coc"
+  "id": 44,
+  "name": "Pannier",
+  "category": "academic",
+  "location": "stucen",
+  "organization": "cs"
 }, {
-  "Event_ID": 45,
-  "Category": "Social",
-  "Location": "Klaus",
-  "Organization": "SGA"
+  "id": 45,
+  "name": "Subin",
+  "category": "social",
+  "location": "stucen",
+  "organization": "cs"
 }, {
-  "Event_ID": 46,
-  "Category": "Sports",
-  "Location": "StuCen",
-  "Organization": "SGA"
+  "id": 46,
+  "name": "Zaam-Dox",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "greek"
 }, {
-  "Event_ID": 47,
-  "Category": "Academic",
-  "Location": "StuCen",
-  "Organization": "Coc"
+  "id": 47,
+  "name": "Domainer",
+  "category": "career",
+  "location": "culc",
+  "organization": "sga"
 }, {
-  "Event_ID": 48,
-  "Category": "Social",
-  "Location": "Klaus",
-  "Organization": "Athletics"
+  "id": 48,
+  "name": "Zoolab",
+  "category": "social",
+  "location": "coc",
+  "organization": "greek"
 }, {
-  "Event_ID": 49,
-  "Category": "Career",
-  "Location": "CULC",
-  "Organization": "Athletics"
+  "id": 49,
+  "name": "Zontrax",
+  "category": "career",
+  "location": "coc",
+  "organization": "cs"
 }, {
-  "Event_ID": 50,
-  "Category": "Career",
-  "Location": "Klaus",
-  "Organization": "SGA"
+  "id": 50,
+  "name": "Prodder",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 51,
+  "name": "Subin",
+  "category": "academic",
+  "location": "coc",
+  "organization": "sga"
+}, {
+  "id": 52,
+  "name": "Y-find",
+  "category": "social",
+  "location": "coc",
+  "organization": "cs"
+}, {
+  "id": 53,
+  "name": "Sonsing",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "cs"
+}, {
+  "id": 54,
+  "name": "Regrant",
+  "category": "career",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 55,
+  "name": "Overhold",
+  "category": "academic",
+  "location": "culc",
+  "organization": "cs"
+}, {
+  "id": 56,
+  "name": "Greenlam",
+  "category": "career",
+  "location": "klaus",
+  "organization": "greek"
+}, {
+  "id": 57,
+  "name": "Gembucket",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "sga"
+}, {
+  "id": 58,
+  "name": "Flexidy",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "sga"
+}, {
+  "id": 59,
+  "name": "Flexidy",
+  "category": "career",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 60,
+  "name": "Bitchip",
+  "category": "social",
+  "location": "culc",
+  "organization": "cs"
+}, {
+  "id": 61,
+  "name": "Alphazap",
+  "category": "academic",
+  "location": "klaus",
+  "organization": "greek"
+}, {
+  "id": 62,
+  "name": "Aerified",
+  "category": "social",
+  "location": "coc",
+  "organization": "cs"
+}, {
+  "id": 63,
+  "name": "Kanlam",
+  "category": "sport",
+  "location": "culc",
+  "organization": "cs"
+}, {
+  "id": 64,
+  "name": "Prodder",
+  "category": "career",
+  "location": "coc",
+  "organization": "cs"
+}, {
+  "id": 65,
+  "name": "Domainer",
+  "category": "social",
+  "location": "klaus",
+  "organization": "athletics"
+}, {
+  "id": 66,
+  "name": "Span",
+  "category": "social",
+  "location": "klaus",
+  "organization": "sga"
+}, {
+  "id": 67,
+  "name": "Namfix",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 68,
+  "name": "Sonsing",
+  "category": "sport",
+  "location": "culc",
+  "organization": "cs"
+}, {
+  "id": 69,
+  "name": "Andalax",
+  "category": "social",
+  "location": "klaus",
+  "organization": "greek"
+}, {
+  "id": 70,
+  "name": "Zoolab",
+  "category": "academic",
+  "location": "stucen",
+  "organization": "sga"
+}, {
+  "id": 71,
+  "name": "Y-Solowarm",
+  "category": "academic",
+  "location": "klaus",
+  "organization": "cs"
+}, {
+  "id": 72,
+  "name": "Trippledex",
+  "category": "academic",
+  "location": "klaus",
+  "organization": "athletics"
+}, {
+  "id": 73,
+  "name": "Sonsing",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 74,
+  "name": "Flexidy",
+  "category": "academic",
+  "location": "culc",
+  "organization": "athletics"
+}, {
+  "id": 75,
+  "name": "Alpha",
+  "category": "academic",
+  "location": "stucen",
+  "organization": "athletics"
+}, {
+  "id": 76,
+  "name": "Namfix",
+  "category": "career",
+  "location": "stucen",
+  "organization": "athletics"
+}, {
+  "id": 77,
+  "name": "Andalax",
+  "category": "academic",
+  "location": "coc",
+  "organization": "cs"
+}, {
+  "id": 78,
+  "name": "Trippledex",
+  "category": "sport",
+  "location": "coc",
+  "organization": "sga"
+}, {
+  "id": 79,
+  "name": "Sub-Ex",
+  "category": "sport",
+  "location": "coc",
+  "organization": "cs"
+}, {
+  "id": 80,
+  "name": "Sonsing",
+  "category": "social",
+  "location": "culc",
+  "organization": "sga"
+}, {
+  "id": 81,
+  "name": "Opela",
+  "category": "career",
+  "location": "stucen",
+  "organization": "athletics"
+}, {
+  "id": 82,
+  "name": "Rank",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "athletics"
+}, {
+  "id": 83,
+  "name": "Wrapsafe",
+  "category": "social",
+  "location": "culc",
+  "organization": "athletics"
+}, {
+  "id": 84,
+  "name": "Y-Solowarm",
+  "category": "academic",
+  "location": "coc",
+  "organization": "athletics"
+}, {
+  "id": 85,
+  "name": "Zoolab",
+  "category": "career",
+  "location": "culc",
+  "organization": "sga"
+}, {
+  "id": 86,
+  "name": "Gembucket",
+  "category": "career",
+  "location": "klaus",
+  "organization": "sga"
+}, {
+  "id": 87,
+  "name": "Prodder",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "athletics"
+}, {
+  "id": 88,
+  "name": "Bytecard",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "cs"
+}, {
+  "id": 89,
+  "name": "Stringtough",
+  "category": "sport",
+  "location": "coc",
+  "organization": "sga"
+}, {
+  "id": 90,
+  "name": "Matsoft",
+  "category": "academic",
+  "location": "culc",
+  "organization": "cs"
+}, {
+  "id": 91,
+  "name": "Domainer",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "sga"
+}, {
+  "id": 92,
+  "name": "Redhold",
+  "category": "academic",
+  "location": "klaus",
+  "organization": "athletics"
+}, {
+  "id": 93,
+  "name": "Fixflex",
+  "category": "career",
+  "location": "stucen",
+  "organization": "sga"
+}, {
+  "id": 94,
+  "name": "Temp",
+  "category": "sport",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 95,
+  "name": "Duobam",
+  "category": "career",
+  "location": "stucen",
+  "organization": "sga"
+}, {
+  "id": 96,
+  "name": "Andalax",
+  "category": "academic",
+  "location": "culc",
+  "organization": "greek"
+}, {
+  "id": 97,
+  "name": "Trippledex",
+  "category": "social",
+  "location": "coc",
+  "organization": "greek"
+}, {
+  "id": 98,
+  "name": "It",
+  "category": "social",
+  "location": "stucen",
+  "organization": "sga"
+}, {
+  "id": 99,
+  "name": "Tresom",
+  "category": "social",
+  "location": "stucen",
+  "organization": "greek"
+}, {
+  "id": 100,
+  "name": "Stronghold",
+  "category": "sport",
+  "location": "klaus",
+  "organization": "greek"
 }]

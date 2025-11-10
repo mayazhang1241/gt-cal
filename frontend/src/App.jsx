@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import './App.css';
 import EventModal from './EventModal.jsx';
 import ListView from './ListView.jsx';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import logo from './assets/GTCal_icon.png';
 import {data} from './data.js';
 
+const FilterContext = createContext();
 
 // Landing Page Component
 function LandingPage({ onEnterCalendar }) {
@@ -65,7 +66,27 @@ function LandingPage({ onEnterCalendar }) {
 // Calendar Grid Component
 function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode }) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  
+  const [filters, setFilters] = useState({
+        category: '',
+        location: '',
+        organization: ''})
+  const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [name]: value,
+        }));
+    };
+  const filtereddata = data.filter((e) => {
+        return (
+            (filters.category === '' ||
+                e.category === filters.category) &&
+            (filters.location === '' ||
+                e.location === filters.location) &&
+            (filters.organization === '' ||
+                e.organization === filters.organization)
+        );
+    });
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -166,6 +187,7 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
             <option value="greek">Greek Life</option>
             <option value="athletics">Athletics</option>
           </select>
+      
           <button className="apply-filter-btn"
             onClick={handleFilter}>
           Apply filter
@@ -184,10 +206,10 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
         </thead>
         <tbody>
     {data.map((item) =>(
-          <tr key={item.Event_ID}>
-            <td>{item.Category}</td>
-            <td>{item.Location}</td>
-            <td>{item.Organization}</td>
+          <tr key={item.id}>
+            <td>{item.category}</td>
+            <td>{item.location}</td>
+            <td>{item.organization}</td>
           </tr>
 
 
@@ -241,6 +263,45 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
     </div>
   );
 }
+
+const FilterControls = () => {
+    const { filters, handleFilterChange } = useContext(FilterContext);
+    return (
+        <div style={{ marginBottom: '10px' }}>
+            <select name="category"
+                value={filters.category}
+                onChange={handleFilterChange}
+                style={{ marginRight: '10px' }}>
+                <option value="">All Categories</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Backend">Backend</option>
+                <option value="Data Science">Data Science</option>
+            </select>
+            <select name="location" value={filters.location}
+                onChange={handleFilterChange}
+                style={{ marginRight: '10px' }}>
+                <option value="">All locations</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+            <select name="organization" value={filters.organization}
+                onChange={handleFilterChange}>
+                <option value="">All organizations</option>
+                <option value="₹1000">₹1000</option>
+                <option value="₹1200">₹1200</option>
+                <option value="₹1500">₹1500</option>
+                <option value="₹1800">₹1800</option>
+                <option value="₹2000">₹2000</option>
+                <option value="₹2200">₹2200</option>
+                <option value="₹2500">₹2500</option>
+            </select>
+        </div>
+    );
+};
+
+
+
 
 
 // My Events View Component
