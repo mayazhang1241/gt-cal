@@ -7,7 +7,7 @@ import './ListView.css';
 import './EventDetails.css';
 import axios from 'axios';
 import logo from './assets/GTCal_icon.png';
-
+import {data} from './data.js';
 
 
 // Landing Page Component
@@ -123,6 +123,11 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
   // Calculate number of weeks in the month
   const numWeeks = Math.ceil((days.length) / 7);
   
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  console.log(selectedFilters)
+  let Cfilters = ["Academic","Social","Sports","Career"];
+  let Lfilters = ["Klaus","CoC","CULC","StuCen"];
+  let Ofilters = ["SGA","CoC","Greek","Athletics"];
   return (
     <div className="calendar-wrapper">
       <div className="calendar-controls">
@@ -161,10 +166,36 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
             <option value="greek">Greek Life</option>
             <option value="athletics">Athletics</option>
           </select>
-          <button className="apply-filter-btn">Apply filter</button>
+          <button className="apply-filter-btn"
+            onClick={handleFilter}>
+          Apply filter
+          </button>
+
         </div>
       </div>
       
+      <table className='test'>
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Organization</th>
+        </tr>
+        </thead>
+        <tbody>
+    {data.map((item) =>(
+          <tr key={item.Event_ID}>
+            <td>{item.Category}</td>
+            <td>{item.Location}</td>
+            <td>{item.Organization}</td>
+          </tr>
+
+
+    ))}
+        
+        </tbody>
+    </table>
+
       <div className={`calendar-grid weeks-${numWeeks}`}>
         {dayNames.map(day => (
           <div key={day} className="day-header">{day}</div>
@@ -775,4 +806,7 @@ function App() {
   );
 }
 
+function handleFilter() {
+    alert('You clicked me!');
+  }
 export default App;

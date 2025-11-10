@@ -1,0 +1,252 @@
+export const data = 
+[{
+  "Event_ID": 1,
+  "Category": "Social",
+  "Location": "Klaus",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 2,
+  "Category": "Academic",
+  "Location": "Klaus",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 3,
+  "Category": "Social",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 4,
+  "Category": "Sports",
+  "Location": "Klaus",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 5,
+  "Category": "Career",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 6,
+  "Category": "Academic",
+  "Location": "CULC",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 7,
+  "Category": "Career",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 8,
+  "Category": "Sports",
+  "Location": "CULC",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 9,
+  "Category": "Social",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 10,
+  "Category": "Career",
+  "Location": "Klaus",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 11,
+  "Category": "Academic",
+  "Location": "StuCen",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 12,
+  "Category": "Sports",
+  "Location": "CULC",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 13,
+  "Category": "Sports",
+  "Location": "CULC",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 14,
+  "Category": "Social",
+  "Location": "CULC",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 15,
+  "Category": "Social",
+  "Location": "StuCen",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 16,
+  "Category": "Social",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 17,
+  "Category": "Social",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 18,
+  "Category": "Academic",
+  "Location": "StuCen",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 19,
+  "Category": "Social",
+  "Location": "Klaus",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 20,
+  "Category": "Academic",
+  "Location": "StuCen",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 21,
+  "Category": "Career",
+  "Location": "CoC",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 22,
+  "Category": "Academic",
+  "Location": "Klaus",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 23,
+  "Category": "Sports",
+  "Location": "StuCen",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 24,
+  "Category": "Sports",
+  "Location": "StuCen",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 25,
+  "Category": "Sports",
+  "Location": "CULC",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 26,
+  "Category": "Sports",
+  "Location": "CULC",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 27,
+  "Category": "Sports",
+  "Location": "StuCen",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 28,
+  "Category": "Academic",
+  "Location": "StuCen",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 29,
+  "Category": "Career",
+  "Location": "CoC",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 30,
+  "Category": "Social",
+  "Location": "StuCen",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 31,
+  "Category": "Social",
+  "Location": "CoC",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 32,
+  "Category": "Academic",
+  "Location": "Klaus",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 33,
+  "Category": "Academic",
+  "Location": "CULC",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 34,
+  "Category": "Academic",
+  "Location": "CoC",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 35,
+  "Category": "Career",
+  "Location": "StuCen",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 36,
+  "Category": "Academic",
+  "Location": "Klaus",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 37,
+  "Category": "Sports",
+  "Location": "StuCen",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 38,
+  "Category": "Social",
+  "Location": "CoC",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 39,
+  "Category": "Sports",
+  "Location": "Klaus",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 40,
+  "Category": "Social",
+  "Location": "CULC",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 41,
+  "Category": "Sports",
+  "Location": "CULC",
+  "Organization": "Greek"
+}, {
+  "Event_ID": 42,
+  "Category": "Social",
+  "Location": "CULC",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 43,
+  "Category": "Sports",
+  "Location": "Klaus",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 44,
+  "Category": "Social",
+  "Location": "Klaus",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 45,
+  "Category": "Social",
+  "Location": "Klaus",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 46,
+  "Category": "Sports",
+  "Location": "StuCen",
+  "Organization": "SGA"
+}, {
+  "Event_ID": 47,
+  "Category": "Academic",
+  "Location": "StuCen",
+  "Organization": "Coc"
+}, {
+  "Event_ID": 48,
+  "Category": "Social",
+  "Location": "Klaus",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 49,
+  "Category": "Career",
+  "Location": "CULC",
+  "Organization": "Athletics"
+}, {
+  "Event_ID": 50,
+  "Category": "Career",
+  "Location": "Klaus",
+  "Organization": "SGA"
+}]
