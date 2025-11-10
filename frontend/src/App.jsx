@@ -144,13 +144,11 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
   // Calculate number of weeks in the month
   const numWeeks = Math.ceil((days.length) / 7);
   
-  const [selectedFilters, setSelectedFilters] = useState([]);
-  console.log(selectedFilters)
-  let Cfilters = ["Academic","Social","Sports","Career"];
-  let Lfilters = ["Klaus","CoC","CULC","StuCen"];
-  let Ofilters = ["SGA","CoC","Greek","Athletics"];
   return (
     <div className="calendar-wrapper">
+      <FilterContext.Provider value = {{
+            filters, handleFilterChange
+          }}>
       <div className="calendar-controls">
         <div className="calendar-header">
           <div className="month-navigation">
@@ -165,59 +163,31 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
             </button>
           </div>
         </div>
-        <div className="filter-controls">
-          <select className="filter-select" defaultValue="">
-            <option value="">Category</option>
-            <option value="academic">Academic</option>
-            <option value="social">Social</option>
-            <option value="sports">Sports</option>
-            <option value="career">Career</option>
-          </select>
-          <select className="filter-select" defaultValue="">
-            <option value="">Location</option>
-            <option value="klaus">Klaus</option>
-            <option value="coc">College of Computing</option>
-            <option value="culc">CULC</option>
-            <option value="student-center">Student Center</option>
-          </select>
-          <select className="filter-select" defaultValue="">
-            <option value="">Organization</option>
-            <option value="sga">Student Government Association</option>
-            <option value="coc">College of Computing</option>
-            <option value="greek">Greek Life</option>
-            <option value="athletics">Athletics</option>
-          </select>
-      
-          <button className="apply-filter-btn"
-            onClick={handleFilter}>
-          Apply filter
-          </button>
 
+
+
+
+        <div className="filter-controls">
+
+            <FilterControls />
+          
         </div>
+
+
+      </div>
+      </FilterContext.Provider>
+
+      <div className='test'>
+      <ul>
+        {filtereddata.map((e) => (
+            <li key={e.id}>
+              {e.name}, of category {e.category},
+              in {e.location} and made possible by {e.organization}
+            </li>
+                    ))}
+      </ul>
       </div>
       
-      <table className='test'>
-        <thead>
-        <tr>
-            <th>Category</th>
-            <th>Location</th>
-            <th>Organization</th>
-        </tr>
-        </thead>
-        <tbody>
-    {data.map((item) =>(
-          <tr key={item.id}>
-            <td>{item.category}</td>
-            <td>{item.location}</td>
-            <td>{item.organization}</td>
-          </tr>
-
-
-    ))}
-        
-        </tbody>
-    </table>
-
       <div className={`calendar-grid weeks-${numWeeks}`}>
         {dayNames.map(day => (
           <div key={day} className="day-header">{day}</div>
@@ -267,34 +237,38 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
 const FilterControls = () => {
     const { filters, handleFilterChange } = useContext(FilterContext);
     return (
-        <div style={{ marginBottom: '10px' }}>
-            <select name="category"
+        <div>
+            <select className = "filter-select"
+                name='category'
                 value={filters.category}
                 onChange={handleFilterChange}
                 style={{ marginRight: '10px' }}>
-                <option value="">All Categories</option>
-                <option value="Frontend">Frontend</option>
-                <option value="Backend">Backend</option>
-                <option value="Data Science">Data Science</option>
+            <option value="">Category</option>
+            <option value="academic">Academic</option>
+            <option value="social">Social</option>
+            <option value="sports">Sports</option>
+            <option value="career">Career</option>
             </select>
-            <select name="location" value={filters.location}
+            <select className = "filter-select" 
+                name='location'
+                value={filters.location}
                 onChange={handleFilterChange}
                 style={{ marginRight: '10px' }}>
-                <option value="">All locations</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+            <option value="">Location</option>
+            <option value="klaus">Klaus</option>
+            <option value="coc">College of Computing</option>
+            <option value="culc">CULC</option>
+            <option value="stucen">Student Center</option>
             </select>
-            <select name="organization" value={filters.organization}
+            <select className = "filter-select" 
+                name = 'organization'
+                value={filters.organization}
                 onChange={handleFilterChange}>
-                <option value="">All organizations</option>
-                <option value="₹1000">₹1000</option>
-                <option value="₹1200">₹1200</option>
-                <option value="₹1500">₹1500</option>
-                <option value="₹1800">₹1800</option>
-                <option value="₹2000">₹2000</option>
-                <option value="₹2200">₹2200</option>
-                <option value="₹2500">₹2500</option>
+            <option value="">Organization</option>
+            <option value="sga">Student Government Association</option>
+            <option value="coc">College of Computing</option>
+            <option value="greek">Greek Life</option>
+            <option value="athletics">Athletics</option>
             </select>
         </div>
     );
