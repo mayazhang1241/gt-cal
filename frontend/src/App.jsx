@@ -178,8 +178,8 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
       <ul>
         {filtereddata.map((e) => (
             <li key={e.id}>
-              {e.title}, of category {e.category},
-              in {e.location} and made possible by {e.organizer}
+              {e.title} -------- {e.category} --------
+              {e.location} -------- {e.organizer}
             </li>
                     ))}
       </ul>
