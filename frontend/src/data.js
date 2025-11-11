@@ -1,602 +1,602 @@
 export const data = 
 [{
   "id": 1,
-  "name": "Opela",
+  "title": "Opela",
   "category": "social",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 2,
-  "name": "Alphazap",
+  "title": "Alphazap",
   "category": "sport",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 3,
-  "name": "Daltfresh",
+  "title": "Daltfresh",
   "category": "career",
   "location": "culc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 4,
-  "name": "It",
+  "title": "It",
   "category": "career",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 5,
-  "name": "Home Ing",
+  "title": "Home Ing",
   "category": "academic",
   "location": "coc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 6,
-  "name": "Zamit",
+  "title": "Zamit",
   "category": "academic",
   "location": "culc",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 7,
-  "name": "Subin",
+  "title": "Subin",
   "category": "career",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 8,
-  "name": "Viva",
+  "title": "Viva",
   "category": "social",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 9,
-  "name": "Konklux",
+  "title": "Konklux",
   "category": "social",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 10,
-  "name": "Transcof",
+  "title": "Transcof",
   "category": "sport",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 11,
-  "name": "Stringtough",
+  "title": "Stringtough",
   "category": "career",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 12,
-  "name": "Holdlamis",
+  "title": "Holdlamis",
   "category": "social",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 13,
-  "name": "Temp",
+  "title": "Temp",
   "category": "academic",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 14,
-  "name": "Ronstring",
+  "title": "Ronstring",
   "category": "sport",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 15,
-  "name": "Span",
+  "title": "Span",
   "category": "social",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 16,
-  "name": "Konklux",
+  "title": "Konklux",
   "category": "social",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 17,
-  "name": "Ronstring",
+  "title": "Ronstring",
   "category": "academic",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 18,
-  "name": "Vagram",
+  "title": "Vagram",
   "category": "career",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 19,
-  "name": "Transcof",
+  "title": "Transcof",
   "category": "sport",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 20,
-  "name": "Kanlam",
+  "title": "Kanlam",
   "category": "career",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 21,
-  "name": "Gembucket",
+  "title": "Gembucket",
   "category": "career",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 22,
-  "name": "Voyatouch",
+  "title": "Voyatouch",
   "category": "sport",
   "location": "culc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 23,
-  "name": "Stim",
+  "title": "Stim",
   "category": "career",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 24,
-  "name": "Gembucket",
+  "title": "Gembucket",
   "category": "career",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 25,
-  "name": "Y-find",
+  "title": "Y-find",
   "category": "career",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 26,
-  "name": "Temp",
+  "title": "Temp",
   "category": "sport",
   "location": "coc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 27,
-  "name": "Tres-Zap",
+  "title": "Tres-Zap",
   "category": "academic",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 28,
-  "name": "Y-find",
+  "title": "Y-find",
   "category": "academic",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 29,
-  "name": "Toughjoyfax",
+  "title": "Toughjoyfax",
   "category": "career",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 30,
-  "name": "Rank",
+  "title": "Rank",
   "category": "career",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 31,
-  "name": "Alphazap",
+  "title": "Alphazap",
   "category": "social",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 32,
-  "name": "Stronghold",
+  "title": "Stronghold",
   "category": "sport",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 33,
-  "name": "Rank",
+  "title": "Rank",
   "category": "career",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 34,
-  "name": "Duobam",
+  "title": "Duobam",
   "category": "social",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 35,
-  "name": "Domainer",
+  "title": "Domainer",
   "category": "sport",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 36,
-  "name": "Sonair",
+  "title": "Sonair",
   "category": "social",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 37,
-  "name": "Tampflex",
+  "title": "Tampflex",
   "category": "social",
   "location": "coc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 38,
-  "name": "Zontrax",
+  "title": "Zontrax",
   "category": "career",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 39,
-  "name": "Bigtax",
+  "title": "Bigtax",
   "category": "social",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 40,
-  "name": "It",
+  "title": "It",
   "category": "social",
   "location": "klaus",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 41,
-  "name": "Fintone",
+  "title": "Fintone",
   "category": "academic",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 42,
-  "name": "Latlux",
+  "title": "Latlux",
   "category": "career",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 43,
-  "name": "Quo Lux",
+  "title": "Quo Lux",
   "category": "social",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 44,
-  "name": "Pannier",
+  "title": "Pannier",
   "category": "academic",
   "location": "stucen",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 45,
-  "name": "Subin",
+  "title": "Subin",
   "category": "social",
   "location": "stucen",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 46,
-  "name": "Zaam-Dox",
+  "title": "Zaam-Dox",
   "category": "sport",
   "location": "klaus",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 47,
-  "name": "Domainer",
+  "title": "Domainer",
   "category": "career",
   "location": "culc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 48,
-  "name": "Zoolab",
+  "title": "Zoolab",
   "category": "social",
   "location": "coc",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 49,
-  "name": "Zontrax",
+  "title": "Zontrax",
   "category": "career",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 50,
-  "name": "Prodder",
+  "title": "Prodder",
   "category": "sport",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 51,
-  "name": "Subin",
+  "title": "Subin",
   "category": "academic",
   "location": "coc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 52,
-  "name": "Y-find",
+  "title": "Y-find",
   "category": "social",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 53,
-  "name": "Sonsing",
+  "title": "Sonsing",
   "category": "sport",
   "location": "stucen",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 54,
-  "name": "Regrant",
+  "title": "Regrant",
   "category": "career",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 55,
-  "name": "Overhold",
+  "title": "Overhold",
   "category": "academic",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 56,
-  "name": "Greenlam",
+  "title": "Greenlam",
   "category": "career",
   "location": "klaus",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 57,
-  "name": "Gembucket",
+  "title": "Gembucket",
   "category": "sport",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 58,
-  "name": "Flexidy",
+  "title": "Flexidy",
   "category": "sport",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 59,
-  "name": "Flexidy",
+  "title": "Flexidy",
   "category": "career",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 60,
-  "name": "Bitchip",
+  "title": "Bitchip",
   "category": "social",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 61,
-  "name": "Alphazap",
+  "title": "Alphazap",
   "category": "academic",
   "location": "klaus",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 62,
-  "name": "Aerified",
+  "title": "Aerified",
   "category": "social",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 63,
-  "name": "Kanlam",
+  "title": "Kanlam",
   "category": "sport",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 64,
-  "name": "Prodder",
+  "title": "Prodder",
   "category": "career",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 65,
-  "name": "Domainer",
+  "title": "Domainer",
   "category": "social",
   "location": "klaus",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 66,
-  "name": "Span",
+  "title": "Span",
   "category": "social",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 67,
-  "name": "Namfix",
+  "title": "Namfix",
   "category": "sport",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 68,
-  "name": "Sonsing",
+  "title": "Sonsing",
   "category": "sport",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 69,
-  "name": "Andalax",
+  "title": "Andalax",
   "category": "social",
   "location": "klaus",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 70,
-  "name": "Zoolab",
+  "title": "Zoolab",
   "category": "academic",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 71,
-  "name": "Y-Solowarm",
+  "title": "Y-Solowarm",
   "category": "academic",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 72,
-  "name": "Trippledex",
+  "title": "Trippledex",
   "category": "academic",
   "location": "klaus",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 73,
-  "name": "Sonsing",
+  "title": "Sonsing",
   "category": "sport",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 74,
-  "name": "Flexidy",
+  "title": "Flexidy",
   "category": "academic",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 75,
-  "name": "Alpha",
+  "title": "Alpha",
   "category": "academic",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 76,
-  "name": "Namfix",
+  "title": "Namfix",
   "category": "career",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 77,
-  "name": "Andalax",
+  "title": "Andalax",
   "category": "academic",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 78,
-  "name": "Trippledex",
+  "title": "Trippledex",
   "category": "sport",
   "location": "coc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 79,
-  "name": "Sub-Ex",
+  "title": "Sub-Ex",
   "category": "sport",
   "location": "coc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 80,
-  "name": "Sonsing",
+  "title": "Sonsing",
   "category": "social",
   "location": "culc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 81,
-  "name": "Opela",
+  "title": "Opela",
   "category": "career",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 82,
-  "name": "Rank",
+  "title": "Rank",
   "category": "sport",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 83,
-  "name": "Wrapsafe",
+  "title": "Wrapsafe",
   "category": "social",
   "location": "culc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 84,
-  "name": "Y-Solowarm",
+  "title": "Y-Solowarm",
   "category": "academic",
   "location": "coc",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 85,
-  "name": "Zoolab",
+  "title": "Zoolab",
   "category": "career",
   "location": "culc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 86,
-  "name": "Gembucket",
+  "title": "Gembucket",
   "category": "career",
   "location": "klaus",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 87,
-  "name": "Prodder",
+  "title": "Prodder",
   "category": "sport",
   "location": "stucen",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 88,
-  "name": "Bytecard",
+  "title": "Bytecard",
   "category": "sport",
   "location": "klaus",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 89,
-  "name": "Stringtough",
+  "title": "Stringtough",
   "category": "sport",
   "location": "coc",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 90,
-  "name": "Matsoft",
+  "title": "Matsoft",
   "category": "academic",
   "location": "culc",
-  "organization": "cs"
+  "organizer": "cs"
 }, {
   "id": 91,
-  "name": "Domainer",
+  "title": "Domainer",
   "category": "sport",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 92,
-  "name": "Redhold",
+  "title": "Redhold",
   "category": "academic",
   "location": "klaus",
-  "organization": "athletics"
+  "organizer": "athletics"
 }, {
   "id": 93,
-  "name": "Fixflex",
+  "title": "Fixflex",
   "category": "career",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 94,
-  "name": "Temp",
+  "title": "Temp",
   "category": "sport",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 95,
-  "name": "Duobam",
+  "title": "Duobam",
   "category": "career",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 96,
-  "name": "Andalax",
+  "title": "Andalax",
   "category": "academic",
   "location": "culc",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 97,
-  "name": "Trippledex",
+  "title": "Trippledex",
   "category": "social",
   "location": "coc",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 98,
-  "name": "It",
+  "title": "It",
   "category": "social",
   "location": "stucen",
-  "organization": "sga"
+  "organizer": "sga"
 }, {
   "id": 99,
-  "name": "Tresom",
+  "title": "Tresom",
   "category": "social",
   "location": "stucen",
-  "organization": "greek"
+  "organizer": "greek"
 }, {
   "id": 100,
-  "name": "Stronghold",
+  "title": "Stronghold",
   "category": "sport",
   "location": "klaus",
-  "organization": "greek"
+  "organizer": "greek"
 }]

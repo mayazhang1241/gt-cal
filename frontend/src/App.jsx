@@ -69,7 +69,7 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
   const [filters, setFilters] = useState({
         category: '',
         location: '',
-        organization: ''})
+        organizer: ''})
   const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters((prevFilters) => ({
@@ -83,8 +83,8 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
                 e.category === filters.category) &&
             (filters.location === '' ||
                 e.location === filters.location) &&
-            (filters.organization === '' ||
-                e.organization === filters.organization)
+            (filters.organizer === '' ||
+                e.organizer === filters.organizer)
         );
     });
   const monthNames = [
@@ -170,10 +170,7 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
         <div className="filter-controls">
 
             <FilterControls />
-          
         </div>
-
-
       </div>
       </FilterContext.Provider>
 
@@ -181,8 +178,8 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
       <ul>
         {filtereddata.map((e) => (
             <li key={e.id}>
-              {e.name}, of category {e.category},
-              in {e.location} and made possible by {e.organization}
+              {e.title}, of category {e.category},
+              in {e.location} and made possible by {e.organizer}
             </li>
                     ))}
       </ul>
@@ -261,10 +258,10 @@ const FilterControls = () => {
             <option value="stucen">Student Center</option>
             </select>
             <select className = "filter-select" 
-                name = 'organization'
-                value={filters.organization}
+                name = 'organizer'
+                value={filters.organizer}
                 onChange={handleFilterChange}>
-            <option value="">Organization</option>
+            <option value="">Organizer</option>
             <option value="sga">Student Government Association</option>
             <option value="coc">College of Computing</option>
             <option value="greek">Greek Life</option>

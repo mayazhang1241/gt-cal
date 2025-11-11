@@ -266,6 +266,11 @@ body {
   transition: transform 0.2s ease 0s
 }
 
+.filter-select:active{
+  background: var(--gt-navy);
+  color: var(--gt-white);
+}
+
 .apply-filter-btn {
   padding: 0.5rem 1.5rem;
   min-width: 120px;
@@ -321,6 +326,10 @@ body {
   font-weight: 600;
   font-size: 0.875rem;
   border: 1px solid var(--gt-gray);
+}
+.day-header:hover {
+    transform: scale(1.02);
+  transition: transform 0.2s ease 0s
 }
 
 .calendar-day {
