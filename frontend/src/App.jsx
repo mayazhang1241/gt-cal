@@ -163,17 +163,11 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
             </button>
           </div>
         </div>
-
-
-
-
         <div className="filter-controls">
-
             <FilterControls />
         </div>
       </div>
       </FilterContext.Provider>
-
       <div className='test'>
       <ul>
         {filtereddata.map((e) => (
@@ -184,12 +178,10 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
                     ))}
       </ul>
       </div>
-      
       <div className={`calendar-grid weeks-${numWeeks}`}>
         {dayNames.map(day => (
           <div key={day} className="day-header">{day}</div>
         ))}
-        
         {days.map((date, index) => {
           const dayEvents = getEventsForDay(date);
           const isToday = date && date.toDateString() === new Date().toDateString();
