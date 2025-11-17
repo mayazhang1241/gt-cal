@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import EventModal from './EventModal.jsx';
 import ListView from './ListView.jsx';
@@ -7,9 +7,8 @@ import './ListView.css';
 import './EventDetails.css';
 import axios from 'axios';
 import logo from './assets/GTCal_icon.png';
-import {data} from './data.js';
 
-const FilterContext = createContext();
+
 
 // Landing Page Component
 function LandingPage({ onEnterCalendar }) {
@@ -66,27 +65,7 @@ function LandingPage({ onEnterCalendar }) {
 // Calendar Grid Component
 function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode }) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [filters, setFilters] = useState({
-        category: '',
-        location: '',
-        organizer: ''})
-  const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [name]: value,
-        }));
-    };
-  const filtereddata = data.filter((e) => {
-        return (
-            (filters.category === '' ||
-                e.category === filters.category) &&
-            (filters.location === '' ||
-                e.location === filters.location) &&
-            (filters.organizer === '' ||
-                e.organizer === filters.organizer)
-        );
-    });
+  
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -146,9 +125,6 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
   
   return (
     <div className="calendar-wrapper">
-      <FilterContext.Provider value = {{
-            filters, handleFilterChange
-          }}>
       <div className="calendar-controls">
         <div className="calendar-header">
           <div className="month-navigation">
@@ -164,24 +140,36 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
           </div>
         </div>
         <div className="filter-controls">
-            <FilterControls />
+          <select className="filter-select" defaultValue="">
+            <option value="">Category</option>
+            <option value="academic">Academic</option>
+            <option value="social">Social</option>
+            <option value="sports">Sports</option>
+            <option value="career">Career</option>
+          </select>
+          <select className="filter-select" defaultValue="">
+            <option value="">Location</option>
+            <option value="klaus">Klaus</option>
+            <option value="coc">College of Computing</option>
+            <option value="culc">CULC</option>
+            <option value="student-center">Student Center</option>
+          </select>
+          <select className="filter-select" defaultValue="">
+            <option value="">Organization</option>
+            <option value="sga">Student Government Association</option>
+            <option value="coc">College of Computing</option>
+            <option value="greek">Greek Life</option>
+            <option value="athletics">Athletics</option>
+          </select>
+          <button className="apply-filter-btn">Apply filter</button>
         </div>
       </div>
-      </FilterContext.Provider>
-      <div className='test'>
-      <ul>
-        {filtereddata.map((e) => (
-            <li key={e.id}>
-              {e.title} -------- {e.category} --------
-              {e.location} -------- {e.organizer}
-            </li>
-                    ))}
-      </ul>
-      </div>
+      
       <div className={`calendar-grid weeks-${numWeeks}`}>
         {dayNames.map(day => (
           <div key={day} className="day-header">{day}</div>
         ))}
+        
         {days.map((date, index) => {
           const dayEvents = getEventsForDay(date);
           const isToday = date && date.toDateString() === new Date().toDateString();
@@ -222,49 +210,6 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
     </div>
   );
 }
-
-const FilterControls = () => {
-    const { filters, handleFilterChange } = useContext(FilterContext);
-    return (
-        <div>
-            <select className = "filter-select"
-                name='category'
-                value={filters.category}
-                onChange={handleFilterChange}
-                style={{ marginRight: '10px' }}>
-            <option value="">Category</option>
-            <option value="academic">Academic</option>
-            <option value="social">Social</option>
-            <option value="sports">Sports</option>
-            <option value="career">Career</option>
-            </select>
-            <select className = "filter-select" 
-                name='location'
-                value={filters.location}
-                onChange={handleFilterChange}
-                style={{ marginRight: '10px' }}>
-            <option value="">Location</option>
-            <option value="klaus">Klaus</option>
-            <option value="coc">College of Computing</option>
-            <option value="culc">CULC</option>
-            <option value="stucen">Student Center</option>
-            </select>
-            <select className = "filter-select" 
-                name = 'organizer'
-                value={filters.organizer}
-                onChange={handleFilterChange}>
-            <option value="">Organizer</option>
-            <option value="sga">Student Government Association</option>
-            <option value="coc">College of Computing</option>
-            <option value="greek">Greek Life</option>
-            <option value="athletics">Athletics</option>
-            </select>
-        </div>
-    );
-};
-
-
-
 
 
 // My Events View Component
@@ -830,7 +775,4 @@ function App() {
   );
 }
 
-function handleFilter() {
-    alert('You clicked me!');
-  }
 export default App;
