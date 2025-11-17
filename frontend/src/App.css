@@ -17,6 +17,8 @@
   --spacing-xl: 2rem;
 }
 
+
+
 /* Reset and Global Styles */
 * {
   margin: 0;
@@ -36,6 +38,13 @@ body {
   background-color: #F5F5F5;
 }
 
+.test {
+
+  color: #333333;  
+  font-size: x-small;
+}
+
+
 /* App Container */
 .app {
   height: 100vh;
@@ -50,7 +59,7 @@ body {
   background: var(--gt-white);
   border-bottom: 2px solid var(--gt-gold);
   box-shadow: var(--shadow-md);
-  height: 70px;
+  height: 80px;
   flex-shrink: 0;
 }
 
@@ -66,7 +75,6 @@ body {
 
 .logo-section {
   padding: 0.5rem;
-  cursor: pointer;
 }
 
 .logo {
@@ -74,7 +82,10 @@ body {
   height: 50px;
   object-fit: contain;
 }
-
+.logo:hover{
+  transform:scale(1.1);
+  transition: transform 0.2s ease 0s;
+}
 .nav {
   position: absolute;
   left: 50%;
@@ -97,6 +108,8 @@ body {
 
 .nav-btn:hover {
   color: var(--gt-navy);
+  transform: translateY(-2px);
+  transform:scale(1.1);
 }
 
 .nav-btn.active {
@@ -204,12 +217,13 @@ body {
   padding: 0.25rem;
   transition: all 0.2s ease;
   display: flex;
-  align-items: center;
+  align-items: flex;
   justify-content: center;
 }
 
 .nav-button:hover {
-  transform: scale(1.1);
+  transform: translateY(50%);
+  transform: scale(1.2);
 }
 
 .calendar-title {
@@ -219,6 +233,11 @@ body {
   margin: 0 0.5rem;
   min-width: 250px;
   text-align: center;
+}
+
+.calendar-title:hover {
+  transform: scale(1.04);
+  transition: transform 0.2s ease 0s
 }
 
 .filter-controls {
@@ -242,6 +261,16 @@ body {
   background-size: 0.65em auto;
 }
 
+.filter-select:hover{
+  transform: scale(1.05);
+  transition: transform 0.2s ease 0s
+}
+
+.filter-select:active{
+  background: var(--gt-navy);
+  color: var(--gt-white);
+}
+
 .apply-filter-btn {
   padding: 0.5rem 1.5rem;
   min-width: 120px;
@@ -258,6 +287,8 @@ body {
 .apply-filter-btn:hover {
   background: var(--gt-gold);
   color: var(--gt-navy);
+  transform: scale(1.1);
+  transition: transform 0.2s ease 0s
 }
 
 /* Calendar Grid */
@@ -296,6 +327,10 @@ body {
   font-size: 0.875rem;
   border: 1px solid var(--gt-gray);
 }
+.day-header:hover {
+    transform: scale(1.02);
+  transition: transform 0.2s ease 0s
+}
 
 .calendar-day {
   background: var(--gt-white);
@@ -309,7 +344,10 @@ body {
   height: 100%;
   border: 1px solid var(--gt-gray);
 }
-
+.calendar-day:hover{
+  transform: scale(1.02);
+  transition: transform 0.2s ease 0s
+}
 .calendar-day.empty {
   background: var(--gt-white);
   cursor: default;
