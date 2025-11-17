@@ -1,0 +1,602 @@
+export const data = 
+[{
+  "id": 1,
+  "title": "Opela",
+  "category": "social",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 2,
+  "title": "Alphazap",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 3,
+  "title": "Daltfresh",
+  "category": "career",
+  "location": "culc",
+  "organizer": "sga"
+}, {
+  "id": 4,
+  "title": "It",
+  "category": "career",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 5,
+  "title": "Home Ing",
+  "category": "academic",
+  "location": "coc",
+  "organizer": "sga"
+}, {
+  "id": 6,
+  "title": "Zamit",
+  "category": "academic",
+  "location": "culc",
+  "organizer": "greek"
+}, {
+  "id": 7,
+  "title": "Subin",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 8,
+  "title": "Viva",
+  "category": "social",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 9,
+  "title": "Konklux",
+  "category": "social",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 10,
+  "title": "Transcof",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 11,
+  "title": "Stringtough",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 12,
+  "title": "Holdlamis",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 13,
+  "title": "Temp",
+  "category": "academic",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 14,
+  "title": "Ronstring",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 15,
+  "title": "Span",
+  "category": "social",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 16,
+  "title": "Konklux",
+  "category": "social",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 17,
+  "title": "Ronstring",
+  "category": "academic",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 18,
+  "title": "Vagram",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 19,
+  "title": "Transcof",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 20,
+  "title": "Kanlam",
+  "category": "career",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 21,
+  "title": "Gembucket",
+  "category": "career",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 22,
+  "title": "Voyatouch",
+  "category": "sport",
+  "location": "culc",
+  "organizer": "sga"
+}, {
+  "id": 23,
+  "title": "Stim",
+  "category": "career",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 24,
+  "title": "Gembucket",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 25,
+  "title": "Y-find",
+  "category": "career",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 26,
+  "title": "Temp",
+  "category": "sport",
+  "location": "coc",
+  "organizer": "sga"
+}, {
+  "id": 27,
+  "title": "Tres-Zap",
+  "category": "academic",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 28,
+  "title": "Y-find",
+  "category": "academic",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 29,
+  "title": "Toughjoyfax",
+  "category": "career",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 30,
+  "title": "Rank",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 31,
+  "title": "Alphazap",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 32,
+  "title": "Stronghold",
+  "category": "sport",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 33,
+  "title": "Rank",
+  "category": "career",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 34,
+  "title": "Duobam",
+  "category": "social",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 35,
+  "title": "Domainer",
+  "category": "sport",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 36,
+  "title": "Sonair",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 37,
+  "title": "Tampflex",
+  "category": "social",
+  "location": "coc",
+  "organizer": "athletics"
+}, {
+  "id": 38,
+  "title": "Zontrax",
+  "category": "career",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 39,
+  "title": "Bigtax",
+  "category": "social",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 40,
+  "title": "It",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "greek"
+}, {
+  "id": 41,
+  "title": "Fintone",
+  "category": "academic",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 42,
+  "title": "Latlux",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 43,
+  "title": "Quo Lux",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 44,
+  "title": "Pannier",
+  "category": "academic",
+  "location": "stucen",
+  "organizer": "cs"
+}, {
+  "id": 45,
+  "title": "Subin",
+  "category": "social",
+  "location": "stucen",
+  "organizer": "cs"
+}, {
+  "id": 46,
+  "title": "Zaam-Dox",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "greek"
+}, {
+  "id": 47,
+  "title": "Domainer",
+  "category": "career",
+  "location": "culc",
+  "organizer": "sga"
+}, {
+  "id": 48,
+  "title": "Zoolab",
+  "category": "social",
+  "location": "coc",
+  "organizer": "greek"
+}, {
+  "id": 49,
+  "title": "Zontrax",
+  "category": "career",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 50,
+  "title": "Prodder",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 51,
+  "title": "Subin",
+  "category": "academic",
+  "location": "coc",
+  "organizer": "sga"
+}, {
+  "id": 52,
+  "title": "Y-find",
+  "category": "social",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 53,
+  "title": "Sonsing",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "cs"
+}, {
+  "id": 54,
+  "title": "Regrant",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 55,
+  "title": "Overhold",
+  "category": "academic",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 56,
+  "title": "Greenlam",
+  "category": "career",
+  "location": "klaus",
+  "organizer": "greek"
+}, {
+  "id": 57,
+  "title": "Gembucket",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 58,
+  "title": "Flexidy",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 59,
+  "title": "Flexidy",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 60,
+  "title": "Bitchip",
+  "category": "social",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 61,
+  "title": "Alphazap",
+  "category": "academic",
+  "location": "klaus",
+  "organizer": "greek"
+}, {
+  "id": 62,
+  "title": "Aerified",
+  "category": "social",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 63,
+  "title": "Kanlam",
+  "category": "sport",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 64,
+  "title": "Prodder",
+  "category": "career",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 65,
+  "title": "Domainer",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "athletics"
+}, {
+  "id": 66,
+  "title": "Span",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 67,
+  "title": "Namfix",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 68,
+  "title": "Sonsing",
+  "category": "sport",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 69,
+  "title": "Andalax",
+  "category": "social",
+  "location": "klaus",
+  "organizer": "greek"
+}, {
+  "id": 70,
+  "title": "Zoolab",
+  "category": "academic",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 71,
+  "title": "Y-Solowarm",
+  "category": "academic",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 72,
+  "title": "Trippledex",
+  "category": "academic",
+  "location": "klaus",
+  "organizer": "athletics"
+}, {
+  "id": 73,
+  "title": "Sonsing",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 74,
+  "title": "Flexidy",
+  "category": "academic",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 75,
+  "title": "Alpha",
+  "category": "academic",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 76,
+  "title": "Namfix",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 77,
+  "title": "Andalax",
+  "category": "academic",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 78,
+  "title": "Trippledex",
+  "category": "sport",
+  "location": "coc",
+  "organizer": "sga"
+}, {
+  "id": 79,
+  "title": "Sub-Ex",
+  "category": "sport",
+  "location": "coc",
+  "organizer": "cs"
+}, {
+  "id": 80,
+  "title": "Sonsing",
+  "category": "social",
+  "location": "culc",
+  "organizer": "sga"
+}, {
+  "id": 81,
+  "title": "Opela",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 82,
+  "title": "Rank",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 83,
+  "title": "Wrapsafe",
+  "category": "social",
+  "location": "culc",
+  "organizer": "athletics"
+}, {
+  "id": 84,
+  "title": "Y-Solowarm",
+  "category": "academic",
+  "location": "coc",
+  "organizer": "athletics"
+}, {
+  "id": 85,
+  "title": "Zoolab",
+  "category": "career",
+  "location": "culc",
+  "organizer": "sga"
+}, {
+  "id": 86,
+  "title": "Gembucket",
+  "category": "career",
+  "location": "klaus",
+  "organizer": "sga"
+}, {
+  "id": 87,
+  "title": "Prodder",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "athletics"
+}, {
+  "id": 88,
+  "title": "Bytecard",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "cs"
+}, {
+  "id": 89,
+  "title": "Stringtough",
+  "category": "sport",
+  "location": "coc",
+  "organizer": "sga"
+}, {
+  "id": 90,
+  "title": "Matsoft",
+  "category": "academic",
+  "location": "culc",
+  "organizer": "cs"
+}, {
+  "id": 91,
+  "title": "Domainer",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 92,
+  "title": "Redhold",
+  "category": "academic",
+  "location": "klaus",
+  "organizer": "athletics"
+}, {
+  "id": 93,
+  "title": "Fixflex",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 94,
+  "title": "Temp",
+  "category": "sport",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 95,
+  "title": "Duobam",
+  "category": "career",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 96,
+  "title": "Andalax",
+  "category": "academic",
+  "location": "culc",
+  "organizer": "greek"
+}, {
+  "id": 97,
+  "title": "Trippledex",
+  "category": "social",
+  "location": "coc",
+  "organizer": "greek"
+}, {
+  "id": 98,
+  "title": "It",
+  "category": "social",
+  "location": "stucen",
+  "organizer": "sga"
+}, {
+  "id": 99,
+  "title": "Tresom",
+  "category": "social",
+  "location": "stucen",
+  "organizer": "greek"
+}, {
+  "id": 100,
+  "title": "Stronghold",
+  "category": "sport",
+  "location": "klaus",
+  "organizer": "greek"
+}]
