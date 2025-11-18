@@ -351,6 +351,10 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
       const updatedEvent = events.find(e => e.id === selectedEvent.id);
       if (updatedEvent) {
         setSelectedEvent(updatedEvent);
+      } else {
+        // Event was deleted, close the modal
+        setSelectedEvent(null);
+        setIsEventDetailOpen(false);
       }
     }
   }, [events, selectedEvent?.id]);
@@ -480,6 +484,10 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
       const updatedEvent = events.find(e => e.id === selectedEvent.id);
       if (updatedEvent) {
         setSelectedEvent(updatedEvent);
+      } else {
+        // Event was deleted, close the modal
+        setSelectedEvent(null);
+        setIsEventDetailOpen(false);
       }
     }
   }, [events, selectedEvent?.id]);
