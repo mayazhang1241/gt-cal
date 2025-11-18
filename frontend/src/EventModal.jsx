@@ -13,6 +13,12 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
     image: ''
   });
 
+  const [timeComponents, setTimeComponents] = useState({
+    hour: '12',
+    minute: '00',
+    period: 'PM'
+  });
+
   const [errors, setErrors] = useState({});
   const [isPublishing, setIsPublishing] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
@@ -44,6 +50,21 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
         [name]: ''
       }));
     }
+  };
+
+  const handleTimeChange = (component, value) => {
+    const newTimeComponents = {
+      ...timeComponents,
+      [component]: value
+    };
+    setTimeComponents(newTimeComponents);
+    
+    // Update formData.time with formatted 12-hour time
+    const formattedTime = `${newTimeComponents.hour}:${newTimeComponents.minute} ${newTimeComponents.period} EST`;
+    setFormData(prev => ({
+      ...prev,
+      time: formattedTime
+    }));
   };
 
   const validateForm = () => {
@@ -105,6 +126,13 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
             image: ''
           });
           
+          // Reset time components
+          setTimeComponents({
+            hour: '12',
+            minute: '00',
+            period: 'PM'
+          });
+          
           onClose();
         }, 2000);
       } catch (error) {
@@ -161,15 +189,37 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
             </div>
 
             <div className="form-group">
-              <label htmlFor="time">Time</label>
-              <input
-                type="time"
-                id="time"
-                name="time"
-                value={formData.time}
-                onChange={handleChange}
-                className=""
-              />
+              <label htmlFor="time">Time (EST)</label>
+              <div className="time-picker-container">
+                <select 
+                  className="time-select hour-select"
+                  value={timeComponents.hour}
+                  onChange={(e) => handleTimeChange('hour', e.target.value)}
+                >
+                  {Array.from({ length: 12 }, (_, i) => {
+                    const hour = i + 1;
+                    return <option key={hour} value={hour.toString().padStart(2, '0')}>{hour}</option>;
+                  })}
+                </select>
+                <span className="time-separator">:</span>
+                <select 
+                  className="time-select minute-select"
+                  value={timeComponents.minute}
+                  onChange={(e) => handleTimeChange('minute', e.target.value)}
+                >
+                  {['00', '15', '30', '45'].map(minute => (
+                    <option key={minute} value={minute}>{minute}</option>
+                  ))}
+                </select>
+                <select 
+                  className="time-select period-select"
+                  value={timeComponents.period}
+                  onChange={(e) => handleTimeChange('period', e.target.value)}
+                >
+                  <option value="AM">AM</option>
+                  <option value="PM">PM</option>
+                </select>
+              </div>
             </div>
           </div>
 

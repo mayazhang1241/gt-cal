@@ -213,13 +213,13 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
 
 
 // My Events View Component
-function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, currentUserId }) {
+function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, discussions, onAddDiscussion, onAddReply, currentUserId }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isEventDetailOpen, setIsEventDetailOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('created'); // 'created' or 'attending'
   
   // Filter events based on active tab
-  const createdEvents = events.filter(event => event.organizer === 'You' || event.organizer === 'Georgia Tech Student');
+  const createdEvents = events.filter(event => event.createdBy === currentUserId);
   const attendingEvents = events.filter(event => event.attendingUsers?.includes(currentUserId));
   
   const handleEventClick = (event) => {
@@ -309,6 +309,9 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
         onLike={onLike}
         onAttend={onAttend}
         onComment={onComment}
+        discussions={selectedEvent ? discussions[selectedEvent.id] || [] : []}
+        onAddDiscussion={(discussionData) => selectedEvent && onAddDiscussion(selectedEvent.id, discussionData)}
+        onAddReply={(discussionId, replyData) => selectedEvent && onAddReply(selectedEvent.id, discussionId, replyData)}
       />
     </div>
   );
@@ -350,7 +353,7 @@ function ProfileView() {
 }
 
 // Main Calendar Page
-function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, currentView, onViewChange, currentUserId }) {
+function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, discussions, onAddDiscussion, onAddReply, currentView, onViewChange, currentUserId }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -417,6 +420,9 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
             onLike={onLike}
             onAttend={onAttend}
             onComment={onComment}
+            discussions={discussions}
+            onAddDiscussion={onAddDiscussion}
+            onAddReply={onAddReply}
             currentUserId={currentUserId}
           />
         );
@@ -500,6 +506,9 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         onLike={onLike}
         onAttend={onAttend}
         onComment={onComment}
+        discussions={selectedEvent ? discussions[selectedEvent.id] || [] : []}
+        onAddDiscussion={(discussionData) => selectedEvent && onAddDiscussion(selectedEvent.id, discussionData)}
+        onAddReply={(discussionId, replyData) => selectedEvent && onAddReply(selectedEvent.id, discussionId, replyData)}
       />
     </div>
   );
@@ -519,7 +528,8 @@ const mockEvents = [
     comments: 12,
     attendees: 150,
     organizer: "HackGT Team",
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=200&fit=crop"
+    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=200&fit=crop",
+    createdBy: "user123"
   },
   {
     id: 2,
@@ -603,7 +613,8 @@ const mockEvents = [
     comments: 2,
     attendees: 8,
     organizer: "Project Team",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop"
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop",
+    createdBy: "user123"
   }
 ];
 
@@ -611,6 +622,7 @@ function App() {
   const [currentView, setCurrentView] = useState('calendar');
   const [events, setEvents] = useState(mockEvents);
   const [loading, setLoading] = useState(false);
+  const [discussions, setDiscussions] = useState({}); // Discussion state per event: { eventId: [discussions] }
 
   // Mock user ID for development
   const currentUserId = 'user123';
@@ -631,6 +643,7 @@ function App() {
       attendees: 0,
       likedBy: [],
       attendingUsers: [],
+      createdBy: currentUserId, // Track who created the event
       date: eventData.date instanceof Date ? eventData.date.toISOString().split('T')[0] : eventData.date
     };
     
@@ -756,6 +769,51 @@ function App() {
     }
   };
 
+  const handleAddDiscussion = (eventId, discussionData) => {
+    const newDiscussion = {
+      id: Date.now(),
+      user: {
+        name: "Georgia Tech Student", // In a real app, get from user profile
+        initials: "GT"
+      },
+      content: discussionData.content,
+      timestamp: discussionData.timestamp,
+      replies: []
+    };
+
+    setDiscussions(prev => ({
+      ...prev,
+      [eventId]: [...(prev[eventId] || []), newDiscussion]
+    }));
+
+    // Increment comment count on the event
+    handleComment(eventId);
+  };
+
+  const handleAddReply = (eventId, discussionId, replyData) => {
+    const newReply = {
+      id: Date.now(),
+      user: {
+        name: "Georgia Tech Student", // In a real app, get from user profile
+        initials: "GT"
+      },
+      content: replyData.content,
+      timestamp: replyData.timestamp
+    };
+
+    setDiscussions(prev => ({
+      ...prev,
+      [eventId]: (prev[eventId] || []).map(discussion =>
+        discussion.id === discussionId
+          ? { ...discussion, replies: [...discussion.replies, newReply] }
+          : discussion
+      )
+    }));
+
+    // Increment comment count on the event
+    handleComment(eventId);
+  };
+
   return (
     <div className="app">
       <CalendarPage 
@@ -767,6 +825,9 @@ function App() {
         onLike={handleLike}
         onAttend={handleAttend}
         onComment={handleComment}
+        discussions={discussions}
+        onAddDiscussion={handleAddDiscussion}
+        onAddReply={handleAddReply}
         currentView={currentView}
         onViewChange={handleViewChange}
         currentUserId={currentUserId}

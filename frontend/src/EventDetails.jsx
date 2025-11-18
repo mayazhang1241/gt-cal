@@ -5,7 +5,7 @@ import './EventDetails.css';
 import './RSVPList.css';
 import './DiscussionBoard.css';
 
-function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAttend, onComment }) {
+function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAttend, onComment, discussions = [], onAddDiscussion, onAddReply }) {
   const [activeTab, setActiveTab] = useState('details'); // 'details', 'rsvp', 'discussion'
 
   if (!isOpen || !event) return null;
@@ -147,56 +147,9 @@ function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAtte
           )}
           {activeTab === 'discussion' && (
             <DiscussionBoard
-              discussions={[
-                {
-                  id: 1,
-                  user: {
-                    name: "John Doe",
-                    initials: "JD"
-                  },
-                  content: "Is this event open to all students or just CS majors?",
-                  timestamp: "2024-12-01T10:00:00Z",
-                  replies: [
-                    {
-                      id: 1,
-                      user: {
-                        name: "Event Organizer",
-                        initials: "EO"
-                      },
-                      content: "This event is open to all Georgia Tech students! We welcome everyone interested in learning about tech careers.",
-                      timestamp: "2024-12-01T10:30:00Z"
-                    }
-                  ]
-                },
-                {
-                  id: 2,
-                  user: {
-                    name: "Sarah Kim",
-                    initials: "SK"
-                  },
-                  content: "Will there be food provided at the event?",
-                  timestamp: "2024-12-02T15:00:00Z",
-                  replies: [
-                    {
-                      id: 2,
-                      user: {
-                        name: "Event Organizer",
-                        initials: "EO"
-                      },
-                      content: "Yes! We'll be providing pizza and refreshments for all attendees.",
-                      timestamp: "2024-12-02T15:15:00Z"
-                    }
-                  ]
-                }
-              ]}
-              onAddDiscussion={(discussion) => {
-                console.log('New discussion:', discussion);
-                onComment(event.id);
-              }}
-              onAddReply={(discussionId, reply) => {
-                console.log('New reply:', { discussionId, reply });
-                onComment(event.id);
-              }}
+              discussions={discussions}
+              onAddDiscussion={onAddDiscussion}
+              onAddReply={onAddReply}
             />
           )}
         </div>
