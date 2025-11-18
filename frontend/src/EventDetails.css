@@ -43,6 +43,43 @@
   font-size: 2.25rem;
   font-weight: 700;
   margin: 0;
+  flex: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.like-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.like-btn:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.like-btn:hover svg {
+  transform: scale(1.15);
+}
+
+.like-btn svg {
+  transition: all 0.2s ease;
 }
 
 .close-btn {
@@ -305,5 +342,34 @@
 
   .modal-actions {
     flex-direction: column;
+  }
+}
+
+/* RSVP Confirmation Toast */
+.rsvp-confirmation {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gt-navy);
+  color: var(--gt-white);
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 48, 87, 0.3);
+  z-index: 10000;
+  font-size: 1rem;
+  font-weight: 600;
+  animation: slideDown 0.3s ease-out;
+  border: 2px solid var(--gt-gold);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 }

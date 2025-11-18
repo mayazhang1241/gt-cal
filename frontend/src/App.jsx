@@ -65,6 +65,17 @@ function LandingPage({ onEnterCalendar }) {
 // Calendar Grid Component
 function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [showDayEventsModal, setShowDayEventsModal] = useState(false);
+  const [selectedDayEvents, setSelectedDayEvents] = useState([]);
+  const [selectedDayDate, setSelectedDayDate] = useState(null);
+  
+  // Filter state
+  const [filters, setFilters] = useState({
+    category: '',
+    location: '',
+    organization: ''
+  });
+  const [filteredEvents, setFilteredEvents] = useState(events);
   
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
@@ -110,12 +121,66 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
     });
   };
   
+  // Update filtered events when events prop changes
+  React.useEffect(() => {
+    setFilteredEvents(events);
+  }, [events]);
+  
+  const handleFilterChange = (filterType, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
+  };
+  
+  const applyFilters = () => {
+    let filtered = [...events];
+    
+    if (filters.category) {
+      filtered = filtered.filter(event => 
+        event.category?.toLowerCase() === filters.category.toLowerCase()
+      );
+    }
+    
+    if (filters.location) {
+      filtered = filtered.filter(event => 
+        event.location?.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
+    
+    if (filters.organization) {
+      filtered = filtered.filter(event => 
+        event.organizer?.toLowerCase().includes(filters.organization.toLowerCase())
+      );
+    }
+    
+    setFilteredEvents(filtered);
+  };
+  
+  // Helper function to safely parse dates (handles both YYYY-MM-DD and ISO timestamp formats)
+  const parseEventDate = (dateStr) => {
+    if (!dateStr) return new Date();
+    // If date already contains 'T', it's an ISO timestamp - parse directly
+    if (dateStr.includes('T')) {
+      return new Date(dateStr);
+    }
+    // Otherwise, it's a simple date string - add T12:00:00 to avoid timezone issues
+    return new Date(dateStr + 'T12:00:00');
+  };
+  
   const getEventsForDay = (date) => {
     if (!date) return [];
-    return events.filter(event => {
-      const eventDate = new Date(event.date);
+    return filteredEvents.filter(event => {
+      const eventDate = parseEventDate(event.date);
       return eventDate.toDateString() === date.toDateString();
     });
+  };
+  
+  const handleSeeMoreClick = (date, dayEvents, e) => {
+    e.stopPropagation();
+    setSelectedDayDate(date);
+    setSelectedDayEvents(dayEvents);
+    setShowDayEventsModal(true);
   };
   
   const days = getDaysInMonth(currentDate);
@@ -140,28 +205,41 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
           </div>
         </div>
         <div className="filter-controls">
-          <select className="filter-select" defaultValue="">
+          <select 
+            className="filter-select" 
+            value={filters.category}
+            onChange={(e) => handleFilterChange('category', e.target.value)}
+          >
             <option value="">Category</option>
             <option value="academic">Academic</option>
             <option value="social">Social</option>
             <option value="sports">Sports</option>
             <option value="career">Career</option>
+            <option value="tech">Tech</option>
           </select>
-          <select className="filter-select" defaultValue="">
+          <select 
+            className="filter-select" 
+            value={filters.location}
+            onChange={(e) => handleFilterChange('location', e.target.value)}
+          >
             <option value="">Location</option>
             <option value="klaus">Klaus</option>
             <option value="coc">College of Computing</option>
             <option value="culc">CULC</option>
             <option value="student-center">Student Center</option>
           </select>
-          <select className="filter-select" defaultValue="">
+          <select 
+            className="filter-select" 
+            value={filters.organization}
+            onChange={(e) => handleFilterChange('organization', e.target.value)}
+          >
             <option value="">Organization</option>
             <option value="sga">Student Government Association</option>
             <option value="coc">College of Computing</option>
             <option value="greek">Greek Life</option>
             <option value="athletics">Athletics</option>
           </select>
-          <button className="apply-filter-btn">Apply filter</button>
+          <button className="apply-filter-btn" onClick={applyFilters}>Apply filter</button>
         </div>
       </div>
       
@@ -198,7 +276,12 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
                       </div>
                     ))}
                     {dayEvents.length > 2 && (
-                      <div className="more-events">+{dayEvents.length - 2}</div>
+                      <div 
+                        className="more-events see-more-btn"
+                        onClick={(e) => handleSeeMoreClick(date, dayEvents, e)}
+                      >
+                        +{dayEvents.length - 2} more
+                      </div>
                     )}
                   </div>
                 </>
@@ -207,6 +290,49 @@ function CalendarGrid({ events, onDayClick, onEventClick, viewMode, setViewMode 
           );
         })}
       </div>
+      
+      {/* Day Events Modal */}
+      {showDayEventsModal && (
+        <div className="modal-overlay" onClick={() => setShowDayEventsModal(false)}>
+          <div className="day-events-modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>
+                {selectedDayDate && selectedDayDate.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
+              </h2>
+              <button className="close-btn" onClick={() => setShowDayEventsModal(false)}>×</button>
+            </div>
+            <div className="day-events-list">
+              {selectedDayEvents.map(event => (
+                <div 
+                  key={event.id} 
+                  className="day-event-item"
+                  onClick={() => {
+                    setShowDayEventsModal(false);
+                    onEventClick(event);
+                  }}
+                >
+                  <div className="event-time-badge">{event.time}</div>
+                  <div className="event-content">
+                    <h3>{event.title}</h3>
+                    <p className="event-location">{event.location}</p>
+                    <p className="event-organizer">{event.organizer}</p>
+                  </div>
+                  <div className="event-stats-mini">
+                    <span>❤️ {event.likes}</span>
+                    <span>👥 {event.attendees}</span>
+                    <span>💬 {event.comments}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -217,6 +343,27 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isEventDetailOpen, setIsEventDetailOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('created'); // 'created' or 'attending'
+  
+  // Update selectedEvent when events array changes (for real-time updates like likes)
+  useEffect(() => {
+    if (selectedEvent) {
+      const updatedEvent = events.find(e => e.id === selectedEvent.id);
+      if (updatedEvent) {
+        setSelectedEvent(updatedEvent);
+      }
+    }
+  }, [events, selectedEvent?.id]);
+  
+  // Helper function to safely parse dates (handles both YYYY-MM-DD and ISO timestamp formats)
+  const parseEventDate = (dateStr) => {
+    if (!dateStr) return new Date();
+    // If date already contains 'T', it's an ISO timestamp - parse directly
+    if (dateStr.includes('T')) {
+      return new Date(dateStr);
+    }
+    // Otherwise, it's a simple date string - add T12:00:00 to avoid timezone issues
+    return new Date(dateStr + 'T12:00:00');
+  };
   
   // Filter events based on active tab
   const createdEvents = events.filter(event => event.createdBy === currentUserId);
@@ -277,8 +424,8 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
             currentEvents.map(event => (
               <div key={event.id} className="event-item" onClick={() => handleEventClick(event)}>
                 <div className="event-date">
-                  <span className="month">{new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}</span>
-                  <span className="day">{new Date(event.date).getDate()}</span>
+                  <span className="month">{parseEventDate(event.date).toLocaleDateString('en-US', { month: 'short' })}</span>
+                  <span className="day">{parseEventDate(event.date).getDate()}</span>
                 </div>
                 <div className="event-info">
                   <h3>{event.title}</h3>
@@ -312,45 +459,12 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
         discussions={selectedEvent ? discussions[selectedEvent.id] || [] : []}
         onAddDiscussion={(discussionData) => selectedEvent && onAddDiscussion(selectedEvent.id, discussionData)}
         onAddReply={(discussionId, replyData) => selectedEvent && onAddReply(selectedEvent.id, discussionId, replyData)}
+        currentUserId={currentUserId}
       />
     </div>
   );
 }
 
-// Profile View Component
-function ProfileView() {
-  return (
-    <div className="profile-page">
-      <div className="profile-container">
-        <div className="profile-header">
-          <div className="profile-avatar">GT</div>
-          <h2>Georgia Tech Student</h2>
-          <p>gtstudent@gatech.edu</p>
-        </div>
-        
-        <div className="profile-stats">
-          <div className="stat-card">
-            <h3>Events Created</h3>
-            <span className="stat-number">5</span>
-          </div>
-          <div className="stat-card">
-            <h3>Events Attending</h3>
-            <span className="stat-number">12</span>
-          </div>
-          <div className="stat-card">
-            <h3>Total Likes</h3>
-            <span className="stat-number">47</span>
-          </div>
-        </div>
-        
-        <div className="profile-actions">
-          <button className="btn btn-primary">Edit Profile</button>
-          <button className="btn btn-outline">Settings</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // Main Calendar Page
 function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, discussions, onAddDiscussion, onAddReply, currentView, onViewChange, currentUserId }) {
@@ -358,6 +472,16 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isEventDetailOpen, setIsEventDetailOpen] = useState(false);
+  
+  // Update selectedEvent when events array changes (for real-time updates like likes)
+  useEffect(() => {
+    if (selectedEvent) {
+      const updatedEvent = events.find(e => e.id === selectedEvent.id);
+      if (updatedEvent) {
+        setSelectedEvent(updatedEvent);
+      }
+    }
+  }, [events, selectedEvent?.id]);
   
   const handleDayClick = (date) => {
     setSelectedDate(date);
@@ -426,8 +550,6 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
             currentUserId={currentUserId}
           />
         );
-      case 'profile':
-        return <ProfileView />;
       default:
         return (
           <CalendarGrid 
@@ -473,7 +595,7 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
             </button>
           </nav>
           <div className="user-section">
-            <div className="user-avatar" onClick={() => onViewChange('profile')}>GT</div>
+            <div className="user-avatar">GT</div>
           </div>
         </div>
       </header>
@@ -509,123 +631,363 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         discussions={selectedEvent ? discussions[selectedEvent.id] || [] : []}
         onAddDiscussion={(discussionData) => selectedEvent && onAddDiscussion(selectedEvent.id, discussionData)}
         onAddReply={(discussionId, replyData) => selectedEvent && onAddReply(selectedEvent.id, discussionId, replyData)}
+        currentUserId={currentUserId}
       />
     </div>
   );
 }
 
-// Mock data for development - Updated with current dates
+// Mock data for development - November 2025 events
 const mockEvents = [
   {
     id: 1,
-    title: "HackGT 2024",
-    date: "2024-12-15",
-    time: "9:00 AM",
-    location: "Klaus Advanced Computing Building",
-    category: "Tech",
-    description: "Georgia Tech's premier hackathon featuring workshops, networking, and prizes!",
-    likes: 45,
-    comments: 12,
-    attendees: 150,
-    organizer: "HackGT Team",
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=200&fit=crop",
-    createdBy: "user123"
+    title: "Fall 2025 AI Career Fair",
+    date: "2025-11-17",
+    time: "9:00 AM EST",
+    endTime: "1:00 PM EST",
+    location: "Exhibition Hall, Midtown Room",
+    category: "Academic",
+    description: "Georgia Tech students interested in artificial intelligence (AI) are invited to attend the Tech AI Career Fair. The event offers a valuable opportunity to connect with leading companies, explore career paths, and showcase research. A student research poster session may also be included.\n\nTech AI's AI Career Fair offers a chance to gain industry insights, build your network, and take the next step in your AI career.\n\nCompanies include: Airia, BlackRock, Deposco, Evident, Geotab, Google, Halco Lighting Technologies, Lennar, Lumen Technologies, ScottMadden, Inc., and the United States Patent and Trademark Office.",
+    likes: 89,
+    comments: 4,
+    attendees: 450,
+    organizer: "Georgia Tech College of Computing",
+    image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400&h=200&fit=crop",
+    createdBy: "gt_college_computing",
+    likedBy: [],
+    attendingUsers: []
   },
   {
     id: 2,
-    title: "Career Fair",
-    date: "2024-12-20",
-    time: "10:00 AM",
-    location: "McCamish Pavilion",
-    category: "Career",
-    description: "Connect with top companies and explore internship opportunities.",
-    likes: 78,
-    comments: 23,
-    attendees: 500,
-    organizer: "Career Services",
-    image: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f2c0?w=400&h=200&fit=crop"
+    title: "Web Dev @ GT Demo Day",
+    date: "2025-11-18",
+    time: "6:30 PM EST",
+    endTime: "7:30 PM EST",
+    location: "Howey Physics Building",
+    category: "Academic",
+    description: "Demo day for all of the hard working projects from all of our web dev teams! Pizza and drinks will be provided :)",
+    likes: 42,
+    comments: 2,
+    attendees: 85,
+    organizer: "Web Dev @ GT",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=200&fit=crop",
+    createdBy: "webdev_gt",
+    likedBy: [],
+    attendingUsers: []
   },
   {
     id: 3,
-    title: "GT vs UGA Game",
-    date: "2024-12-25",
-    time: "3:30 PM",
-    location: "Bobby Dodd Stadium",
-    category: "Sports",
-    description: "Cheer on the Yellow Jackets in this epic rivalry game!",
-    likes: 156,
-    comments: 45,
-    attendees: 55000,
-    organizer: "GT Athletics",
-    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop"
+    title: "Product@GT Demo Day",
+    date: "2025-11-19",
+    time: "6:30 PM EST",
+    endTime: "8:00 PM EST",
+    location: "Scheller College of Business 300",
+    category: "Academic",
+    description: "Demo Day will be a project progress showcase for all six teams this semester. It's also open to non-project students who want to see how project teams work. Presentations are typically slide-based, and each team should plan for 8-10 minutes at the front of the classroom. We'll also have food!",
+    likes: 56,
+    comments: 3,
+    attendees: 120,
+    organizer: "Product@GT",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop",
+    createdBy: "product_gt",
+    likedBy: [],
+    attendingUsers: []
   },
   {
     id: 4,
-    title: "Study Session",
-    date: "2024-12-18",
-    time: "7:00 PM",
-    location: "Library Study Room",
-    category: "Academic",
-    description: "Join us for a collaborative study session for CS 1331 final exam prep.",
-    likes: 12,
-    comments: 5,
-    attendees: 8,
-    organizer: "CS Study Group",
-    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=200&fit=crop"
+    title: "AI, Technology, and the Future of Trading with Ryan Duckworth - CEO of Akuna Capital",
+    date: "2025-11-21",
+    time: "1:30 PM EST",
+    endTime: "2:30 PM EST",
+    location: "Scheller College of Business 201",
+    category: "Career",
+    description: "The Center for Finance and Technology is thrilled to welcome Advisory Board Member and Georgia Tech alum Ryan Duckworth, CEO of Akuna Capital, to campus this Friday, November 21, for a fireside chat with Dr. Sudheer Chava.",
+    likes: 78,
+    comments: 3,
+    attendees: 200,
+    organizer: "Georgia Tech Center for Finance and Technology",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop",
+    createdBy: "gt_finance_center",
+    likedBy: [],
+    attendingUsers: []
   },
   {
     id: 5,
-    title: "Startup Pitch",
-    date: "2024-12-22",
-    time: "6:00 PM",
-    location: "Scheller College",
-    category: "Entrepreneurship",
-    description: "Watch student entrepreneurs pitch their innovative ideas to investors.",
-    likes: 32,
-    comments: 8,
-    attendees: 80,
-    organizer: "GT Entrepreneurship",
-    image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=200&fit=crop"
+    title: "Pitt vs. Georgia Tech Football Game",
+    date: "2025-11-22",
+    time: "7:00 PM EST",
+    endTime: "",
+    location: "Bobby Dodd Football Stadium",
+    category: "Sports",
+    description: "Georgia Tech vs. Pitt football game!",
+    likes: 234,
+    comments: 3,
+    attendees: 42000,
+    organizer: "",
+    image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=200&fit=crop",
+    createdBy: "gt_athletics",
+    likedBy: [],
+    attendingUsers: []
   },
   {
     id: 6,
-    title: "Coffee Chat",
-    date: "2024-12-19",
-    time: "2:00 PM",
-    location: "Starbucks - Tech Square",
-    category: "Social",
-    description: "Casual meetup for networking and coffee!",
-    likes: 8,
-    comments: 3,
-    attendees: 15,
-    organizer: "Student Life",
-    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=200&fit=crop"
-  },
-  {
-    id: 8,
-    title: "Today's Meeting",
-    date: new Date().toISOString().split('T')[0], // Today's date
-    time: "2:00 PM",
-    location: "Conference Room A",
-    category: "Academic",
-    description: "Weekly team meeting to discuss project progress.",
-    likes: 5,
-    comments: 2,
-    attendees: 8,
-    organizer: "Project Team",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop",
-    createdBy: "user123"
+    title: "UGA vs. Georgia Tech Football Game",
+    date: "2025-11-28",
+    time: "3:30 PM EST",
+    endTime: "",
+    location: "Mercedes Benz Stadium",
+    category: "Sports",
+    description: "Annual UGA versus Georgia Tech football game!",
+    likes: 567,
+    comments: 5,
+    attendees: 75000,
+    organizer: "",
+    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop",
+    createdBy: "gt_athletics",
+    likedBy: [],
+    attendingUsers: []
   }
 ];
+
+// Mock discussions for events
+const mockDiscussions = {
+  1: [ // Fall 2025 AI Career Fair
+    {
+      id: 1,
+      user: { name: "Sarah Chen", initials: "SC" },
+      content: "Is this event open to all majors or just CS students?",
+      timestamp: new Date("2025-11-15T10:30:00").toISOString(),
+      replies: [
+        {
+          id: 1,
+          user: { name: "Event Organizer", initials: "EO" },
+          content: "This event is open to all Georgia Tech students interested in AI! We welcome students from all majors.",
+          timestamp: new Date("2025-11-15T11:00:00").toISOString()
+        }
+      ]
+    },
+    {
+      id: 2,
+      user: { name: "Michael Park", initials: "MP" },
+      content: "Will there be time for 1-on-1 conversations with recruiters?",
+      timestamp: new Date("2025-11-16T14:20:00").toISOString(),
+      replies: [
+        {
+          id: 2,
+          user: { name: "Event Organizer", initials: "EO" },
+          content: "Yes! Each company will have their own booth where you can have direct conversations with recruiters.",
+          timestamp: new Date("2025-11-16T15:00:00").toISOString()
+        }
+      ]
+    }
+  ],
+  2: [ // Web Dev @ GT Demo Day
+    {
+      id: 3,
+      user: { name: "Alex Johnson", initials: "AJ" },
+      content: "Do we need to bring our laptops?",
+      timestamp: new Date("2025-11-17T12:00:00").toISOString(),
+      replies: [
+        {
+          id: 3,
+          user: { name: "Emma Wilson", initials: "EW" },
+          content: "Not required! Each team will present using the room's projector.",
+          timestamp: new Date("2025-11-17T13:30:00").toISOString()
+        }
+      ]
+    }
+  ],
+  3: [ // Product@GT Demo Day
+    {
+      id: 4,
+      user: { name: "Rachel Kim", initials: "RK" },
+      content: "Will there be vegetarian food options?",
+      timestamp: new Date("2025-11-18T10:00:00").toISOString(),
+      replies: [
+        {
+          id: 4,
+          user: { name: "Product@GT Team", initials: "PT" },
+          content: "Absolutely! We'll have both vegetarian and vegan options available.",
+          timestamp: new Date("2025-11-18T10:30:00").toISOString()
+        }
+      ]
+    },
+    {
+      id: 5,
+      user: { name: "David Lee", initials: "DL" },
+      content: "Is there a dress code for this event?",
+      timestamp: new Date("2025-11-18T16:00:00").toISOString(),
+      replies: []
+    }
+  ],
+  4: [ // AI, Technology, and the Future of Trading
+    {
+      id: 6,
+      user: { name: "Jessica Wang", initials: "JW" },
+      content: "Will this be recorded for students who can't attend?",
+      timestamp: new Date("2025-11-20T09:00:00").toISOString(),
+      replies: [
+        {
+          id: 5,
+          user: { name: "Center for Finance", initials: "CF" },
+          content: "We plan to record the session and share it with registered students afterwards.",
+          timestamp: new Date("2025-11-20T09:45:00").toISOString()
+        }
+      ]
+    },
+    {
+      id: 7,
+      user: { name: "Brandon Smith", initials: "BS" },
+      content: "This sounds amazing! Really excited to hear from an industry leader about AI in trading.",
+      timestamp: new Date("2025-11-20T18:00:00").toISOString(),
+      replies: []
+    }
+  ],
+  5: [ // Pitt vs. Georgia Tech Football Game
+    {
+      id: 8,
+      user: { name: "Tyler Jackson", initials: "TJ" },
+      content: "Anyone know where to get student tickets?",
+      timestamp: new Date("2025-11-21T14:00:00").toISOString(),
+      replies: [
+        {
+          id: 6,
+          user: { name: "Sports Fan", initials: "SF" },
+          content: "Check the GT Athletics website! Student tickets are usually free with BuzzCard.",
+          timestamp: new Date("2025-11-21T14:30:00").toISOString()
+        }
+      ]
+    },
+    {
+      id: 9,
+      user: { name: "Megan Brown", initials: "MB" },
+      content: "GO JACKETS! 🐝💛",
+      timestamp: new Date("2025-11-22T10:00:00").toISOString(),
+      replies: []
+    }
+  ],
+  6: [ // UGA vs. Georgia Tech Football Game
+    {
+      id: 10,
+      user: { name: "Chris Martinez", initials: "CM" },
+      content: "This is THE game of the year! Can't wait!",
+      timestamp: new Date("2025-11-25T15:00:00").toISOString(),
+      replies: [
+        {
+          id: 7,
+          user: { name: "Kelly Davis", initials: "KD" },
+          content: "Agreed! Clean, Old-Fashioned Hate! TO HELL WITH GEORGIA!",
+          timestamp: new Date("2025-11-25T16:00:00").toISOString()
+        }
+      ]
+    },
+    {
+      id: 11,
+      user: { name: "Jordan Lee", initials: "JL" },
+      content: "Anyone organizing a tailgate before the game?",
+      timestamp: new Date("2025-11-27T12:00:00").toISOString(),
+      replies: []
+    },
+    {
+      id: 12,
+      user: { name: "Amy Zhang", initials: "AZ" },
+      content: "Is parking available near Mercedes Benz Stadium?",
+      timestamp: new Date("2025-11-27T20:00:00").toISOString(),
+      replies: [
+        {
+          id: 8,
+          user: { name: "Transportation Guide", initials: "TG" },
+          content: "I'd recommend taking MARTA! It's way easier than dealing with parking downtown.",
+          timestamp: new Date("2025-11-27T21:00:00").toISOString()
+        }
+      ]
+    }
+  ]
+};
 
 function App() {
   const [currentView, setCurrentView] = useState('calendar');
   const [events, setEvents] = useState(mockEvents);
   const [loading, setLoading] = useState(false);
-  const [discussions, setDiscussions] = useState({}); // Discussion state per event: { eventId: [discussions] }
+  const [discussions, setDiscussions] = useState(mockDiscussions); // Discussion state per event: { eventId: [discussions] }
 
   // Mock user ID for development
   const currentUserId = 'user123';
+
+  // Load events from API on mount
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/events');
+        console.log('Loaded from API:', response.data.length, 'events');
+        
+        if (response.data && response.data.length > 0) {
+          // Create a map of unique events by title and date to avoid duplicates
+          const eventMap = new Map();
+          
+          // First add mock events (they take priority)
+          mockEvents.forEach(event => {
+            const key = `${event.title}-${event.date}`;
+            eventMap.set(key, event);
+          });
+          
+          // Then add API events only if they don't duplicate mock events
+          response.data.forEach(event => {
+            const key = `${event.title}-${event.date}`;
+            if (!eventMap.has(key)) {
+              // Convert MongoDB _id to id for consistency
+              eventMap.set(key, { ...event, id: event._id || event.id });
+            }
+          });
+          
+          const uniqueEvents = Array.from(eventMap.values());
+          console.log('Final unique events:', uniqueEvents.length);
+          setEvents(uniqueEvents);
+        }
+      } catch (error) {
+        console.log('Using mock events only (API not available):', error.message);
+        // Keep using mock events if API fails
+      }
+    };
+    
+    loadEvents();
+  }, []);
+
+  // Load discussions for all events
+  useEffect(() => {
+    const loadDiscussions = async () => {
+      try {
+        const discussionPromises = events.map(async (event) => {
+          try {
+            const response = await axios.get(`http://localhost:5000/api/discussions/event/${event.id}`);
+            return { eventId: event.id, discussions: response.data };
+          } catch (error) {
+            // If API fails, use mock discussions for this event if available
+            return { eventId: event.id, discussions: mockDiscussions[event.id] || [] };
+          }
+        });
+        
+        const results = await Promise.all(discussionPromises);
+        const discussionsMap = {};
+        results.forEach(({ eventId, discussions }) => {
+          if (discussions.length > 0) {
+            discussionsMap[eventId] = discussions;
+          }
+        });
+        
+        // Merge with mock discussions (mock discussions take priority if API returned empty)
+        const mergedDiscussions = { ...mockDiscussions, ...discussionsMap };
+        setDiscussions(mergedDiscussions);
+      } catch (error) {
+        console.log('Using mock discussions only');
+        setDiscussions(mockDiscussions);
+      }
+    };
+    
+    if (events.length > 0) {
+      loadDiscussions();
+    }
+  }, [events.length]);
 
   const handleViewChange = (view) => {
     setCurrentView(view);
@@ -655,7 +1017,13 @@ function App() {
       setLoading(true);
       const formattedEventData = {
         ...eventData,
-        date: eventData.date instanceof Date ? eventData.date.toISOString().split('T')[0] : eventData.date
+        date: eventData.date instanceof Date ? eventData.date.toISOString().split('T')[0] : eventData.date,
+        createdBy: currentUserId,
+        likes: 0,
+        comments: 0,
+        attendees: 0,
+        likedBy: [],
+        attendingUsers: []
       };
       
       console.log('Attempting API save:', formattedEventData); // Debug log
@@ -688,88 +1056,95 @@ function App() {
   };
 
   const handleLike = async (eventId, isLiked) => {
+    // Optimistic update - update UI immediately
+    setEvents(prevEvents => prevEvents.map(event =>
+      event.id === eventId
+        ? { 
+            ...event, 
+            likes: event.likes + (isLiked ? 1 : -1),
+            likedBy: isLiked 
+              ? [...(event.likedBy || []), currentUserId] 
+              : (event.likedBy || []).filter(id => id !== currentUserId)
+          }
+        : event
+    ));
+
+    // Then sync with backend
     try {
-      const response = await axios.put(`http://localhost:5000/api/events/${eventId}/like`, {
+      const response = await axios.post(`http://localhost:5000/api/events/${eventId}/like`, {
         userId: currentUserId
       });
 
-      setEvents(events.map(event =>
+      // Update with server response to ensure consistency
+      setEvents(prevEvents => prevEvents.map(event =>
         event.id === eventId
           ? { 
               ...event, 
-              likes: response.data.likes, 
-              likedBy: isLiked 
-                ? [...(event.likedBy || []), currentUserId] 
-                : (event.likedBy || []).filter(id => id !== currentUserId) 
+              likes: response.data.likes,
+              likedBy: response.data.likedBy
             }
           : event
       ));
     } catch (error) {
-      console.error('Error liking event:', error);
-      // Fallback to local state update
-      setEvents(events.map(event =>
-        event.id === eventId
-          ? { 
-              ...event, 
-              likes: event.likes + (isLiked ? 1 : -1),
-              likedBy: isLiked 
-                ? [...(event.likedBy || []), currentUserId] 
-                : (event.likedBy || []).filter(id => id !== currentUserId)
-            }
-          : event
-      ));
+      console.error('Error syncing like with backend:', error);
+      // UI already updated optimistically, so user experience is maintained
     }
   };
 
   const handleAttend = async (eventId, isAttending) => {
+    // Optimistic update - update UI immediately
+    setEvents(prevEvents => prevEvents.map(event =>
+      event.id === eventId
+        ? { 
+            ...event, 
+            attendees: event.attendees + (isAttending ? 1 : -1),
+            attendingUsers: isAttending 
+              ? [...(event.attendingUsers || []), currentUserId] 
+              : (event.attendingUsers || []).filter(id => id !== currentUserId)
+          }
+        : event
+    ));
+
+    // Then sync with backend
     try {
-      const response = await axios.put(`http://localhost:5000/api/events/${eventId}/attend`, {
+      const response = await axios.post(`http://localhost:5000/api/events/${eventId}/attend`, {
         userId: currentUserId
       });
 
-      setEvents(events.map(event =>
+      // Update with server response to ensure consistency
+      setEvents(prevEvents => prevEvents.map(event =>
         event.id === eventId
           ? { 
               ...event, 
-              attendees: response.data.attendees, 
-              attendingUsers: isAttending 
-                ? [...(event.attendingUsers || []), currentUserId] 
-                : (event.attendingUsers || []).filter(id => id !== currentUserId) 
+              attendees: response.data.attendees,
+              attendingUsers: response.data.attendingUsers
             }
           : event
       ));
     } catch (error) {
-      console.error('Error attending event:', error);
-      // Fallback to local state update
-      setEvents(events.map(event =>
-        event.id === eventId
-          ? { 
-              ...event, 
-              attendees: event.attendees + (isAttending ? 1 : -1),
-              attendingUsers: isAttending 
-                ? [...(event.attendingUsers || []), currentUserId] 
-                : (event.attendingUsers || []).filter(id => id !== currentUserId)
-            }
-          : event
-      ));
+      console.error('Error syncing attendance with backend:', error);
+      // UI already updated optimistically, so user experience is maintained
     }
   };
 
   const handleComment = async (eventId) => {
+    // Optimistic update
+    setEvents(prevEvents => prevEvents.map(event =>
+      event.id === eventId
+        ? { ...event, comments: event.comments + 1 }
+        : event
+    ));
+
+    // Sync with backend
     try {
-      // In a real app, this would make an API call to add a comment
-      // For now, just increment the comment count
-      setEvents(events.map(event =>
-        event.id === eventId
-          ? { ...event, comments: event.comments + 1 }
-          : event
-      ));
+      await axios.post(`http://localhost:5000/api/events/${eventId}/comment`);
     } catch (error) {
-      console.error('Error commenting on event:', error);
+      console.error('Error syncing comment count with backend:', error);
+      // UI already updated, no need to rollback for comment count
     }
   };
 
-  const handleAddDiscussion = (eventId, discussionData) => {
+  const handleAddDiscussion = async (eventId, discussionData) => {
     const newDiscussion = {
       id: Date.now(),
       user: {
@@ -781,6 +1156,7 @@ function App() {
       replies: []
     };
 
+    // Optimistic update
     setDiscussions(prev => ({
       ...prev,
       [eventId]: [...(prev[eventId] || []), newDiscussion]
@@ -788,9 +1164,17 @@ function App() {
 
     // Increment comment count on the event
     handleComment(eventId);
+
+    // Sync with backend
+    try {
+      await axios.post(`http://localhost:5000/api/discussions/event/${eventId}`, newDiscussion);
+    } catch (error) {
+      console.error('Error saving discussion to backend:', error);
+      // Discussion already in local state
+    }
   };
 
-  const handleAddReply = (eventId, discussionId, replyData) => {
+  const handleAddReply = async (eventId, discussionId, replyData) => {
     const newReply = {
       id: Date.now(),
       user: {
@@ -801,6 +1185,7 @@ function App() {
       timestamp: replyData.timestamp
     };
 
+    // Optimistic update
     setDiscussions(prev => ({
       ...prev,
       [eventId]: (prev[eventId] || []).map(discussion =>
@@ -810,8 +1195,16 @@ function App() {
       )
     }));
 
-    // Increment comment count on the event
+    // Increment comment count on the event for replies too
     handleComment(eventId);
+
+    // Sync with backend
+    try {
+      await axios.post(`http://localhost:5000/api/discussions/${discussionId}/replies`, newReply);
+    } catch (error) {
+      console.error('Error saving reply to backend:', error);
+      // Reply already in local state
+    }
   };
 
   return (

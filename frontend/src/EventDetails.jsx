@@ -5,21 +5,64 @@ import './EventDetails.css';
 import './RSVPList.css';
 import './DiscussionBoard.css';
 
-function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAttend, onComment, discussions = [], onAddDiscussion, onAddReply }) {
+function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAttend, onComment, discussions = [], onAddDiscussion, onAddReply, currentUserId }) {
   const [activeTab, setActiveTab] = useState('details'); // 'details', 'rsvp', 'discussion'
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
   if (!isOpen || !event) return null;
+
+  // Check if current user is attending this event
+  const isAttending = event.attendingUsers?.includes(currentUserId) || false;
+
+  // Check if current user has liked this event
+  const isLiked = event.likedBy?.includes(currentUserId) || false;
+
+  const handleLike = () => {
+    onLike(event.id, !isLiked);
+  };
+
+  const handleRSVP = () => {
+    onAttend(event.id, !isAttending);
+    
+    // Show confirmation message
+    if (!isAttending) {
+      setConfirmationMessage(`✓ You've successfully RSVP'd to ${event.title}!`);
+    } else {
+      setConfirmationMessage(`✓ You've cancelled your RSVP to ${event.title}`);
+    }
+    setShowConfirmation(true);
+    
+    // Hide confirmation after 3 seconds
+    setTimeout(() => {
+      setShowConfirmation(false);
+    }, 3000);
+  };
+
+  // Helper function to safely parse dates (handles both YYYY-MM-DD and ISO timestamp formats)
+  const parseEventDate = (dateStr) => {
+    if (!dateStr) return new Date();
+    // If date already contains 'T', it's an ISO timestamp - parse directly
+    if (dateStr.includes('T')) {
+      return new Date(dateStr);
+    }
+    // Otherwise, it's a simple date string - add T12:00:00 to avoid timezone issues
+    return new Date(dateStr + 'T12:00:00');
+  };
 
   const renderDetailsTab = () => (
     <div className="event-details-content">
       <div className="event-info">
         <div className="info-row">
           <span className="info-label">Date</span>
-          <span className="info-value">{new Date(event.date).toLocaleDateString()}</span>
+          <span className="info-value">{parseEventDate(event.date).toLocaleDateString()}</span>
         </div>
         <div className="info-row">
           <span className="info-label">Time</span>
-          <span className="info-value">{event.time}</span>
+          <span className="info-value">
+            {event.time}
+            {event.endTime && ` - ${event.endTime.replace(' EST', '')}`}
+          </span>
         </div>
         <div className="info-row">
           <span className="info-label">Location</span>
@@ -85,10 +128,26 @@ function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAtte
 
   return (
     <div className="modal-overlay" onClick={onClose}>
+      {showConfirmation && (
+        <div className="rsvp-confirmation">
+          {confirmationMessage}
+        </div>
+      )}
       <div className="event-detail-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{event.title}</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <div className="header-actions">
+            <button 
+              className={`like-btn ${isLiked ? 'liked' : ''}`} 
+              onClick={handleLike}
+              title={isLiked ? 'Unlike' : 'Like'}
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill={isLiked ? '#E53E3E' : 'none'} stroke={isLiked ? '#E53E3E' : '#666'} strokeWidth="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+            <button className="close-btn" onClick={onClose}>×</button>
+          </div>
         </div>
 
         <div className="modal-tabs">
@@ -155,15 +214,23 @@ function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAtte
         </div>
 
         <div className="modal-actions">
-          <button className="action-btn secondary" onClick={onEdit}>
-            Edit Event
-          </button>
-          <button className="action-btn primary" onClick={() => onAttend(event.id)}>
-            {event.isAttending ? 'Cancel RSVP' : 'RSVP'}
-          </button>
-          <button className="action-btn danger" onClick={() => onDelete(event.id)}>
-            Delete Event
-          </button>
+          {event.createdBy === currentUserId ? (
+            <>
+              <button className="action-btn secondary" onClick={onEdit}>
+                Edit Event
+              </button>
+              <button className="action-btn primary" onClick={handleRSVP}>
+                {isAttending ? 'Cancel RSVP' : 'RSVP'}
+              </button>
+              <button className="action-btn danger" onClick={() => onDelete(event.id)}>
+                Delete Event
+              </button>
+            </>
+          ) : (
+            <button className="action-btn primary" onClick={handleRSVP} style={{ width: '100%' }}>
+              {isAttending ? 'Cancel RSVP' : 'RSVP'}
+            </button>
+          )}
         </div>
       </div>
     </div>

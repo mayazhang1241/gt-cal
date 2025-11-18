@@ -5,7 +5,8 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
-    time: '',
+    time: '12:00 PM EST',
+    endTime: '',
     location: '',
     category: 'Tech',
     description: '',
@@ -15,6 +16,12 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
 
   const [timeComponents, setTimeComponents] = useState({
     hour: '12',
+    minute: '00',
+    period: 'PM'
+  });
+
+  const [endTimeComponents, setEndTimeComponents] = useState({
+    hour: '01',
     minute: '00',
     period: 'PM'
   });
@@ -67,6 +74,21 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
     }));
   };
 
+  const handleEndTimeChange = (component, value) => {
+    const newEndTimeComponents = {
+      ...endTimeComponents,
+      [component]: value
+    };
+    setEndTimeComponents(newEndTimeComponents);
+    
+    // Update formData.endTime with formatted 12-hour time
+    const formattedEndTime = `${newEndTimeComponents.hour}:${newEndTimeComponents.minute} ${newEndTimeComponents.period} EST`;
+    setFormData(prev => ({
+      ...prev,
+      endTime: formattedEndTime
+    }));
+  };
+
   const validateForm = () => {
     const newErrors = {};
     
@@ -74,12 +96,8 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
     if (!formData.date) newErrors.date = 'Date is required';
     if (!formData.location.trim()) newErrors.location = 'Location is required';
     if (!formData.description.trim()) newErrors.description = 'Description is required';
-    if (!formData.organizer.trim()) newErrors.organizer = 'Organizer is required';
     
-    // Validate date is not in the past (allow today)
-    if (formData.date && new Date(formData.date) < new Date().setHours(0, 0, 0, 0)) {
-      newErrors.date = 'Event date cannot be in the past';
-    }
+    // Organizer and end time are now optional, no validation needed
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -118,7 +136,8 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
           setFormData({
             title: '',
             date: '',
-            time: '',
+            time: '12:00 PM EST',
+            endTime: '',
             location: '',
             category: 'Tech',
             description: '',
@@ -129,6 +148,13 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
           // Reset time components
           setTimeComponents({
             hour: '12',
+            minute: '00',
+            period: 'PM'
+          });
+          
+          // Reset end time components
+          setEndTimeComponents({
+            hour: '01',
             minute: '00',
             period: 'PM'
           });
@@ -187,9 +213,11 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
               />
               {errors.date && <span className="error-message">{errors.date}</span>}
             </div>
+          </div>
 
+          <div className="form-row">
             <div className="form-group">
-              <label htmlFor="time">Time (EST)</label>
+              <label htmlFor="time">Start Time (EST)</label>
               <div className="time-picker-container">
                 <select 
                   className="time-select hour-select"
@@ -215,6 +243,40 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
                   className="time-select period-select"
                   value={timeComponents.period}
                   onChange={(e) => handleTimeChange('period', e.target.value)}
+                >
+                  <option value="AM">AM</option>
+                  <option value="PM">PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="endTime">End Time (optional)</label>
+              <div className="time-picker-container">
+                <select 
+                  className="time-select hour-select"
+                  value={endTimeComponents.hour}
+                  onChange={(e) => handleEndTimeChange('hour', e.target.value)}
+                >
+                  {Array.from({ length: 12 }, (_, i) => {
+                    const hour = i + 1;
+                    return <option key={hour} value={hour.toString().padStart(2, '0')}>{hour}</option>;
+                  })}
+                </select>
+                <span className="time-separator">:</span>
+                <select 
+                  className="time-select minute-select"
+                  value={endTimeComponents.minute}
+                  onChange={(e) => handleEndTimeChange('minute', e.target.value)}
+                >
+                  {['00', '15', '30', '45'].map(minute => (
+                    <option key={minute} value={minute}>{minute}</option>
+                  ))}
+                </select>
+                <select 
+                  className="time-select period-select"
+                  value={endTimeComponents.period}
+                  onChange={(e) => handleEndTimeChange('period', e.target.value)}
                 >
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
@@ -254,7 +316,7 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
             </div>
 
             <div className="form-group">
-              <label htmlFor="organizer">Organizer *</label>
+              <label htmlFor="organizer">Organizer (optional)</label>
               <input
                 type="text"
                 id="organizer"
