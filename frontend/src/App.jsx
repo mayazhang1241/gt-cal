@@ -918,7 +918,7 @@ function App() {
   // Apply production-only scaling fix for Vercel deployment
   useEffect(() => {
     if (import.meta.env.PROD) {
-      document.documentElement.style.fontSize = '12.8px'; // 80% of 16px
+      document.documentElement.style.fontSize = '14.4px'; // 90% of 16px
     }
   }, []);
 
