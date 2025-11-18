@@ -7,6 +7,7 @@ import './ListView.css';
 import './EventDetails.css';
 import axios from 'axios';
 import logo from './assets/GTCal_icon.png';
+import API_BASE_URL from './config.js';
 
 
 
@@ -918,7 +919,7 @@ function App() {
   useEffect(() => {
     const loadEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/events');
+        const response = await axios.get(`${API_BASE_URL}/api/events`);
         console.log('Loaded from API:', response.data.length, 'events');
         
         if (response.data && response.data.length > 0) {
@@ -959,7 +960,7 @@ function App() {
       try {
         const discussionPromises = events.map(async (event) => {
           try {
-            const response = await axios.get(`http://localhost:5000/api/discussions/event/${event.id}`);
+            const response = await axios.get(`${API_BASE_URL}/api/discussions/event/${event.id}`);
             return { eventId: event.id, discussions: response.data };
           } catch (error) {
             // If API fails, use mock discussions for this event if available
@@ -1027,7 +1028,7 @@ function App() {
       };
       
       console.log('Attempting API save:', formattedEventData); // Debug log
-      const response = await axios.post('http://localhost:5000/api/events', formattedEventData);
+      const response = await axios.post(`${API_BASE_URL}/api/events`, formattedEventData);
       console.log('API save successful:', response.data); // Debug log
       
       // Update the event with the real ID from the server
@@ -1046,7 +1047,7 @@ function App() {
 
   const handleDeleteEvent = async (eventId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/events/${eventId}`);
+      await axios.delete(`${API_BASE_URL}/api/events/${eventId}`);
       setEvents(prev => prev.filter(event => event.id !== eventId));
     } catch (error) {
       console.error('Error deleting event:', error);
@@ -1071,7 +1072,7 @@ function App() {
 
     // Then sync with backend
     try {
-      const response = await axios.post(`http://localhost:5000/api/events/${eventId}/like`, {
+      const response = await axios.post(`${API_BASE_URL}/api/events/${eventId}/like`, {
         userId: currentUserId
       });
 
@@ -1107,7 +1108,7 @@ function App() {
 
     // Then sync with backend
     try {
-      const response = await axios.post(`http://localhost:5000/api/events/${eventId}/attend`, {
+      const response = await axios.post(`${API_BASE_URL}/api/events/${eventId}/attend`, {
         userId: currentUserId
       });
 
@@ -1137,7 +1138,7 @@ function App() {
 
     // Sync with backend
     try {
-      await axios.post(`http://localhost:5000/api/events/${eventId}/comment`);
+      await axios.post(`${API_BASE_URL}/api/events/${eventId}/comment`);
     } catch (error) {
       console.error('Error syncing comment count with backend:', error);
       // UI already updated, no need to rollback for comment count
@@ -1167,7 +1168,7 @@ function App() {
 
     // Sync with backend
     try {
-      await axios.post(`http://localhost:5000/api/discussions/event/${eventId}`, newDiscussion);
+      await axios.post(`${API_BASE_URL}/api/discussions/event/${eventId}`, newDiscussion);
     } catch (error) {
       console.error('Error saving discussion to backend:', error);
       // Discussion already in local state
@@ -1200,7 +1201,7 @@ function App() {
 
     // Sync with backend
     try {
-      await axios.post(`http://localhost:5000/api/discussions/${discussionId}/replies`, newReply);
+      await axios.post(`${API_BASE_URL}/api/discussions/${discussionId}/replies`, newReply);
     } catch (error) {
       console.error('Error saving reply to backend:', error);
       // Reply already in local state
