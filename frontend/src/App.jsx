@@ -915,6 +915,13 @@ function App() {
   // Mock user ID for development
   const currentUserId = 'user123';
 
+  // Apply production-only scaling fix for Vercel deployment
+  useEffect(() => {
+    if (import.meta.env.PROD) {
+      document.documentElement.style.fontSize = '12.8px'; // 80% of 16px
+    }
+  }, []);
+
   // Load events from API on mount
   useEffect(() => {
     const loadEvents = async () => {
