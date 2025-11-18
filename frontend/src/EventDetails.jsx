@@ -175,32 +175,14 @@ function EventDetails({ event, isOpen, onClose, onEdit, onDelete, onLike, onAtte
           {activeTab === 'details' && renderDetailsTab()}
           {activeTab === 'rsvp' && (
             <RSVPList
-              attendees={[
-                {
-                  id: 1,
-                  firstName: "John",
-                  lastName: "Doe",
-                  email: "john.doe@gatech.edu",
-                  rsvpDate: "2024-12-01",
-                  status: "Confirmed"
-                },
-                {
-                  id: 2,
-                  firstName: "Jane",
-                  lastName: "Smith",
-                  email: "jane.smith@gatech.edu",
-                  rsvpDate: "2024-12-02",
-                  status: "Pending"
-                },
-                {
-                  id: 3,
-                  firstName: "Mike",
-                  lastName: "Johnson",
-                  email: "mike.j@gatech.edu",
-                  rsvpDate: "2024-12-03",
-                  status: "Confirmed"
-                }
-              ]}
+              attendees={(event.attendingUsers || []).map((user, index) => ({
+                id: index + 1,
+                firstName: user.name?.split(' ')[0] || 'Unknown',
+                lastName: user.name?.split(' ').slice(1).join(' ') || 'User',
+                email: `${user.initials?.toLowerCase() || 'user'}@gatech.edu`,
+                rsvpDate: new Date().toISOString().split('T')[0],
+                status: "Confirmed"
+              }))}
               onSearch={(query) => console.log('Search:', query)}
             />
           )}

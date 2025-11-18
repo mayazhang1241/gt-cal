@@ -471,7 +471,7 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
 
 
 // Main Calendar Page
-function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, discussions, onAddDiscussion, onAddReply, currentView, onViewChange, currentUserId }) {
+function CalendarPage({ events, onCreateEvent, onUpdateEvent, onEventClick, onEditEvent, onDeleteEvent, onLike, onAttend, onComment, discussions, onAddDiscussion, onAddReply, currentView, onViewChange, currentUserId }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -502,9 +502,16 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
   };
   
   const handleCreateEvent = (eventData) => {
-    onCreateEvent(eventData);
+    if (eventData.id) {
+      // Editing existing event
+      onUpdateEvent(eventData);
+    } else {
+      // Creating new event
+      onCreateEvent(eventData);
+    }
     setIsEventModalOpen(false);
     setSelectedDate(null);
+    setSelectedEvent(null);
   };
   
   const handleEditEvent = () => {
@@ -621,9 +628,11 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
         onClose={() => {
           setIsEventModalOpen(false);
           setSelectedDate(null);
+          setSelectedEvent(null);
         }}
         onSave={handleCreateEvent}
         initialDate={selectedDate}
+        eventToEdit={selectedEvent}
       />
       
       <EventDetails
@@ -660,12 +669,25 @@ const mockEvents = [
     description: "Georgia Tech students interested in artificial intelligence (AI) are invited to attend the Tech AI Career Fair. The event offers a valuable opportunity to connect with leading companies, explore career paths, and showcase research. A student research poster session may also be included.\n\nTech AI's AI Career Fair offers a chance to gain industry insights, build your network, and take the next step in your AI career.\n\nCompanies include: Airia, BlackRock, Deposco, Evident, Geotab, Google, Halco Lighting Technologies, Lennar, Lumen Technologies, ScottMadden, Inc., and the United States Patent and Trademark Office.",
     likes: 89,
     comments: 4,
-    attendees: 450,
+    attendees: 12,
     organizer: "Georgia Tech College of Computing",
     image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400&h=200&fit=crop",
     createdBy: "gt_college_computing",
     likedBy: [],
-    attendingUsers: []
+    attendingUsers: [
+      { name: "Sarah Chen", initials: "SC" },
+      { name: "Michael Park", initials: "MP" },
+      { name: "Alex Johnson", initials: "AJ" },
+      { name: "Emily Williams", initials: "EW" },
+      { name: "David Kim", initials: "DK" },
+      { name: "Jessica Lee", initials: "JL" },
+      { name: "Ryan Patel", initials: "RP" },
+      { name: "Amanda Zhang", initials: "AZ" },
+      { name: "James Wilson", initials: "JW" },
+      { name: "Olivia Brown", initials: "OB" },
+      { name: "Nathan Garcia", initials: "NG" },
+      { name: "Sophia Martinez", initials: "SM" }
+    ]
   },
   {
     id: 2,
@@ -678,12 +700,21 @@ const mockEvents = [
     description: "Demo day for all of the hard working projects from all of our web dev teams! Pizza and drinks will be provided :)",
     likes: 42,
     comments: 2,
-    attendees: 85,
+    attendees: 8,
     organizer: "Web Dev @ GT",
     image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=200&fit=crop",
     createdBy: "webdev_gt",
     likedBy: [],
-    attendingUsers: []
+    attendingUsers: [
+      { name: "Chris Anderson", initials: "CA" },
+      { name: "Maya Thompson", initials: "MT" },
+      { name: "Kevin Liu", initials: "KL" },
+      { name: "Rachel Green", initials: "RG" },
+      { name: "Brandon Moore", initials: "BM" },
+      { name: "Ashley Davis", initials: "AD" },
+      { name: "Tyler Scott", initials: "TS" },
+      { name: "Jennifer White", initials: "JW" }
+    ]
   },
   {
     id: 3,
@@ -696,12 +727,23 @@ const mockEvents = [
     description: "Demo Day will be a project progress showcase for all six teams this semester. It's also open to non-project students who want to see how project teams work. Presentations are typically slide-based, and each team should plan for 8-10 minutes at the front of the classroom. We'll also have food!",
     likes: 56,
     comments: 3,
-    attendees: 120,
+    attendees: 10,
     organizer: "Product@GT",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop",
     createdBy: "product_gt",
     likedBy: [],
-    attendingUsers: []
+    attendingUsers: [
+      { name: "Daniel Harris", initials: "DH" },
+      { name: "Victoria Clark", initials: "VC" },
+      { name: "Matthew Lewis", initials: "ML" },
+      { name: "Lauren Walker", initials: "LW" },
+      { name: "Andrew Hall", initials: "AH" },
+      { name: "Nicole Allen", initials: "NA" },
+      { name: "Justin Young", initials: "JY" },
+      { name: "Megan King", initials: "MK" },
+      { name: "Eric Wright", initials: "EW" },
+      { name: "Samantha Hill", initials: "SH" }
+    ]
   },
   {
     id: 4,
@@ -714,12 +756,28 @@ const mockEvents = [
     description: "The Center for Finance and Technology is thrilled to welcome Advisory Board Member and Georgia Tech alum Ryan Duckworth, CEO of Akuna Capital, to campus this Friday, November 21, for a fireside chat with Dr. Sudheer Chava.",
     likes: 78,
     comments: 3,
-    attendees: 200,
+    attendees: 15,
     organizer: "Georgia Tech Center for Finance and Technology",
     image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop",
     createdBy: "gt_finance_center",
     likedBy: [],
-    attendingUsers: []
+    attendingUsers: [
+      { name: "Benjamin Adams", initials: "BA" },
+      { name: "Christina Baker", initials: "CB" },
+      { name: "Joshua Nelson", initials: "JN" },
+      { name: "Elizabeth Carter", initials: "EC" },
+      { name: "Patrick Mitchell", initials: "PM" },
+      { name: "Rebecca Perez", initials: "RP" },
+      { name: "Aaron Roberts", initials: "AR" },
+      { name: "Michelle Turner", initials: "MT" },
+      { name: "Jacob Phillips", initials: "JP" },
+      { name: "Kimberly Campbell", initials: "KC" },
+      { name: "Nicholas Parker", initials: "NP" },
+      { name: "Stephanie Evans", initials: "SE" },
+      { name: "Timothy Edwards", initials: "TE" },
+      { name: "Brittany Collins", initials: "BC" },
+      { name: "Jonathan Stewart", initials: "JS" }
+    ]
   },
   {
     id: 5,
@@ -732,12 +790,31 @@ const mockEvents = [
     description: "Georgia Tech vs. Pitt football game!",
     likes: 234,
     comments: 3,
-    attendees: 42000,
+    attendees: 18,
     organizer: "",
     image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=200&fit=crop",
     createdBy: "gt_athletics",
     likedBy: [],
-    attendingUsers: []
+    attendingUsers: [
+      { name: "Marcus Johnson", initials: "MJ" },
+      { name: "Taylor Rodriguez", initials: "TR" },
+      { name: "Connor Murphy", initials: "CM" },
+      { name: "Hannah Cooper", initials: "HC" },
+      { name: "Dylan Reed", initials: "DR" },
+      { name: "Emma Bailey", initials: "EB" },
+      { name: "Austin Bell", initials: "AB" },
+      { name: "Madison Rivera", initials: "MR" },
+      { name: "Cameron Cox", initials: "CC" },
+      { name: "Grace Howard", initials: "GH" },
+      { name: "Jordan Ward", initials: "JW" },
+      { name: "Alexis Torres", initials: "AT" },
+      { name: "Blake Peterson", initials: "BP" },
+      { name: "Sydney Gray", initials: "SG" },
+      { name: "Trevor Ramirez", initials: "TR" },
+      { name: "Kayla James", initials: "KJ" },
+      { name: "Evan Watson", initials: "EW" },
+      { name: "Morgan Brooks", initials: "MB" }
+    ]
   },
   {
     id: 6,
@@ -750,12 +827,33 @@ const mockEvents = [
     description: "Annual UGA versus Georgia Tech football game!",
     likes: 567,
     comments: 5,
-    attendees: 75000,
+    attendees: 20,
     organizer: "",
     image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop",
     createdBy: "gt_athletics",
     likedBy: [],
-    attendingUsers: []
+    attendingUsers: [
+      { name: "Logan Kelly", initials: "LK" },
+      { name: "Chloe Bennett", initials: "CB" },
+      { name: "Mason Wood", initials: "MW" },
+      { name: "Ava Barnes", initials: "AB" },
+      { name: "Lucas Ross", initials: "LR" },
+      { name: "Isabella Henderson", initials: "IH" },
+      { name: "Caleb Coleman", initials: "CC" },
+      { name: "Lily Jenkins", initials: "LJ" },
+      { name: "Zachary Perry", initials: "ZP" },
+      { name: "Natalie Powell", initials: "NP" },
+      { name: "Hunter Long", initials: "HL" },
+      { name: "Ella Patterson", initials: "EP" },
+      { name: "Ian Hughes", initials: "IH" },
+      { name: "Avery Flores", initials: "AF" },
+      { name: "Cole Washington", initials: "CW" },
+      { name: "Zoe Butler", initials: "ZB" },
+      { name: "Gavin Simmons", initials: "GS" },
+      { name: "Addison Foster", initials: "AF" },
+      { name: "Wyatt Russell", initials: "WR" },
+      { name: "Ruby Griffin", initials: "RG" }
+    ]
   }
 ];
 
@@ -1061,6 +1159,33 @@ function App() {
     }
   };
 
+  const handleUpdateEvent = async (eventData) => {
+    console.log('handleUpdateEvent called with:', eventData); // Debug log
+    
+    // Update local state first for immediate feedback
+    setEvents(prev => prev.map(event => 
+      event.id === eventData.id ? { ...eventData } : event
+    ));
+    
+    // Try to update API in background
+    try {
+      setLoading(true);
+      const formattedEventData = {
+        ...eventData,
+        date: eventData.date instanceof Date ? eventData.date.toISOString().split('T')[0] : eventData.date
+      };
+      
+      console.log('Attempting API update:', formattedEventData); // Debug log
+      await axios.put(`${API_BASE_URL}/api/events/${eventData.id}`, formattedEventData);
+      console.log('API update successful'); // Debug log
+    } catch (error) {
+      console.error('API update failed, but event is updated in local state:', error);
+      // Event is already updated in local state, so user can still see it
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDeleteEvent = async (eventId) => {
     try {
       await axios.delete(`${API_BASE_URL}/api/events/${eventId}`);
@@ -1229,6 +1354,7 @@ function App() {
       <CalendarPage 
         events={events}
         onCreateEvent={handleCreateEvent}
+        onUpdateEvent={handleUpdateEvent}
         onEventClick={() => {}}
         onEditEvent={() => {}}
         onDeleteEvent={handleDeleteEvent}

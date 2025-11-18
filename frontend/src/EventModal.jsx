@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './EventModal.css';
 
-function EventModal({ isOpen, onClose, onSave, initialDate }) {
+function EventModal({ isOpen, onClose, onSave, initialDate, eventToEdit }) {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
@@ -32,16 +32,90 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
 
   const categories = ['Tech', 'Career', 'Sports', 'Entrepreneurship', 'Social', 'Academic', 'Cultural'];
 
-  // Update form data when initialDate changes
+  // Helper function to parse time string into components
+  const parseTimeString = (timeStr) => {
+    if (!timeStr) return null;
+    const match = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (match) {
+      return {
+        hour: match[1].padStart(2, '0'),
+        minute: match[2],
+        period: match[3].toUpperCase()
+      };
+    }
+    return null;
+  };
+
+  // Update form data when eventToEdit changes (for editing)
   React.useEffect(() => {
-    if (initialDate) {
+    if (eventToEdit) {
+      // Parse date string
+      let dateStr = eventToEdit.date;
+      if (dateStr.includes('T')) {
+        dateStr = dateStr.split('T')[0];
+      }
+      
+      setFormData({
+        title: eventToEdit.title || '',
+        date: dateStr || '',
+        time: eventToEdit.time || '12:00 PM EST',
+        endTime: eventToEdit.endTime || '',
+        location: eventToEdit.location || '',
+        category: eventToEdit.category || 'Tech',
+        description: eventToEdit.description || '',
+        organizer: eventToEdit.organizer || '',
+        image: eventToEdit.image || ''
+      });
+
+      // Parse and set start time components
+      const startTime = parseTimeString(eventToEdit.time);
+      if (startTime) {
+        setTimeComponents(startTime);
+      }
+
+      // Parse and set end time components
+      if (eventToEdit.endTime) {
+        const endTime = parseTimeString(eventToEdit.endTime);
+        if (endTime) {
+          setEndTimeComponents(endTime);
+        }
+      }
+    } else {
+      // Reset form for creating new event
+      setFormData({
+        title: '',
+        date: '',
+        time: '12:00 PM EST',
+        endTime: '',
+        location: '',
+        category: 'Tech',
+        description: '',
+        organizer: '',
+        image: ''
+      });
+      setTimeComponents({
+        hour: '12',
+        minute: '00',
+        period: 'PM'
+      });
+      setEndTimeComponents({
+        hour: '01',
+        minute: '00',
+        period: 'PM'
+      });
+    }
+  }, [eventToEdit]);
+
+  // Update form data when initialDate changes (for creating from calendar)
+  React.useEffect(() => {
+    if (initialDate && !eventToEdit) {
       const dateString = initialDate.toISOString().split('T')[0];
       setFormData(prev => ({
         ...prev,
         date: dateString
       }));
     }
-  }, [initialDate]);
+  }, [initialDate, eventToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -111,9 +185,15 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
       console.log('Form validation passed!'); // Debug log
       setIsPublishing(true);
       
-      const eventData = {
+      const eventData = eventToEdit ? {
+        // Editing existing event - preserve existing data
+        ...eventToEdit,
         ...formData,
-        date: formData.date, // Keep as string for API compatibility
+        date: formData.date
+      } : {
+        // Creating new event - initialize with defaults
+        ...formData,
+        date: formData.date,
         likes: 0,
         comments: 0,
         attendees: 0,
@@ -181,7 +261,7 @@ function EventModal({ isOpen, onClose, onSave, initialDate }) {
     <div className="modal-overlay" onClick={handleClose}>
       <div className="event-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Create New Event</h2>
+          <h2>{eventToEdit ? 'Edit Event' : 'Create New Event'}</h2>
           <button className="close-btn" onClick={handleClose}>×</button>
         </div>
         
