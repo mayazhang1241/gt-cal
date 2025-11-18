@@ -6,5 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
     ? 'https://gt-cal.onrender.com'
     : 'http://localhost:5000');
 
+console.log('API_BASE_URL:', API_BASE_URL); // Debug log
+
 export default API_BASE_URL;
 
