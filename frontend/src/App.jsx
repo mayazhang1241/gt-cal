@@ -388,8 +388,7 @@ function MyEventsView({ events, onEditEvent, onDeleteEvent, onLike, onAttend, on
   const handleDeleteEvent = () => {
     if (selectedEvent) {
       onDeleteEvent(selectedEvent.id);
-      setIsEventDetailOpen(false);
-      setSelectedEvent(null);
+      // Don't close modal immediately - let useEffect handle it when event is removed
     }
   };
   
@@ -513,11 +512,13 @@ function CalendarPage({ events, onCreateEvent, onEventClick, onEditEvent, onDele
     setIsEventModalOpen(true);
   };
   
-  const handleDeleteEvent = () => {
-    if (selectedEvent) {
-      onDeleteEvent(selectedEvent.id);
-      setIsEventDetailOpen(false);
-      setSelectedEvent(null);
+  const handleDeleteEvent = (eventId) => {
+    // Accept eventId parameter from child components (like MyEventsView)
+    // or use selectedEvent if called directly
+    const idToDelete = eventId || selectedEvent?.id;
+    if (idToDelete) {
+      onDeleteEvent(idToDelete);
+      // Don't close modal immediately - let useEffect handle it when event is removed
     }
   };
   
